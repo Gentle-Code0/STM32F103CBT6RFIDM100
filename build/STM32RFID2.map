@@ -644,17 +644,35 @@ Discarded input sections
                 0x00000000        0x0 build/RFID_low_level.o
  .ARM.exidx.text._ZN12RFIDCommands17set_transmitpowerEt
                 0x00000000        0x8 build/RFID_low_level.o
- .rodata        0x00000000       0x1f build/RFID_low_level.o
- .debug_info    0x00000000     0x12a0 build/RFID_low_level.o
+ .text._ZN12RFIDCommands14set_sleep_modeEv
+                0x00000000       0x38 build/RFID_low_level.o
+ .ARM.extab.text._ZN12RFIDCommands14set_sleep_modeEv
+                0x00000000        0x0 build/RFID_low_level.o
+ .ARM.exidx.text._ZN12RFIDCommands14set_sleep_modeEv
+                0x00000000        0x8 build/RFID_low_level.o
+ .text._ZN12RFIDCommands19set_auto_sleep_timeEh
+                0x00000000       0x40 build/RFID_low_level.o
+ .ARM.extab.text._ZN12RFIDCommands19set_auto_sleep_timeEh
+                0x00000000        0x0 build/RFID_low_level.o
+ .ARM.exidx.text._ZN12RFIDCommands19set_auto_sleep_timeEh
+                0x00000000        0x8 build/RFID_low_level.o
+ .text._ZN12RFIDCommands14enter_IDLEmodeEh
+                0x00000000       0x4c build/RFID_low_level.o
+ .ARM.extab.text._ZN12RFIDCommands14enter_IDLEmodeEh
+                0x00000000        0x0 build/RFID_low_level.o
+ .ARM.exidx.text._ZN12RFIDCommands14enter_IDLEmodeEh
+                0x00000000        0x8 build/RFID_low_level.o
+ .rodata        0x00000000       0x27 build/RFID_low_level.o
+ .debug_info    0x00000000     0x1433 build/RFID_low_level.o
  .debug_abbrev  0x00000000      0x2ba build/RFID_low_level.o
- .debug_loc     0x00000000      0x4b9 build/RFID_low_level.o
+ .debug_loc     0x00000000      0x623 build/RFID_low_level.o
  .debug_aranges
-                0x00000000       0x68 build/RFID_low_level.o
- .debug_ranges  0x00000000       0x58 build/RFID_low_level.o
- .debug_line    0x00000000      0x474 build/RFID_low_level.o
- .debug_str     0x00000000      0xbcd build/RFID_low_level.o
+                0x00000000       0x80 build/RFID_low_level.o
+ .debug_ranges  0x00000000       0x70 build/RFID_low_level.o
+ .debug_line    0x00000000      0x4b2 build/RFID_low_level.o
+ .debug_str     0x00000000      0xc2a build/RFID_low_level.o
  .comment       0x00000000       0x6f build/RFID_low_level.o
- .debug_frame   0x00000000      0x144 build/RFID_low_level.o
+ .debug_frame   0x00000000      0x1a4 build/RFID_low_level.o
  .ARM.attributes
                 0x00000000       0x33 build/RFID_low_level.o
  .text          0x00000000       0x14 build/startup_stm32f103xb.o
@@ -1686,11 +1704,14 @@ PVD_IRQHandler                                    build/startup_stm32f103xb.o
 PendSV_Handler                                    build/stm32f1xx_it.o
 RCC_IRQHandler                                    build/startup_stm32f103xb.o
 RFIDCommands::checksum(unsigned char*, unsigned int) build/RFID_low_level.o
+RFIDCommands::enter_IDLEmode(unsigned char)       build/RFID_low_level.o
 RFIDCommands::get_module_info()                   build/RFID_low_level.o
 RFIDCommands::get_transmitpower()                 build/RFID_low_level.o
 RFIDCommands::multi_polling(unsigned short)       build/RFID_low_level.o
 RFIDCommands::rxpacket(unsigned char*, unsigned char) build/RFID_low_level.o
+RFIDCommands::set_auto_sleep_time(unsigned char)  build/RFID_low_level.o
 RFIDCommands::set_baudrate(unsigned short)        build/RFID_low_level.o
+RFIDCommands::set_sleep_mode()                    build/RFID_low_level.o
 RFIDCommands::set_transmitpower(unsigned short)   build/RFID_low_level.o
 RFIDCommands::single_polling()                    build/RFID_low_level.o
 RFIDCommands::stop_multi_polling()                build/RFID_low_level.o

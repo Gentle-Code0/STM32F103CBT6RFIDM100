@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
   50              	.L3:
   51 000c 00000000 		.word	huart1
   52              		.cfi_endproc
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 2
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 2
 
 
   53              	.LFE69:
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
   19:Core/Src/RFID_low_level.cpp **** 
   20:Core/Src/RFID_low_level.cpp **** /*The Checksum is the sum from the Frame Type byte to the last Instruction Parameter byte,
   21:Core/Src/RFID_low_level.cpp **** and takes only the sum's lowest byte (LSB). Checksum is used to verify if the transmit is correct*/
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 3
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 3
 
 
   22:Core/Src/RFID_low_level.cpp **** void RFIDCommands::checksum(uint8_t bytes[], size_t size)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  145              		.align	2
  146              		.global	_ZN12RFIDCommands15get_module_infoEv
  147              		.thumb
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 4
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 4
 
 
  148              		.thumb_func
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  195              	.L16:
  196              		.align	2
  197              	.L15:
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 5
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 5
 
 
  198 0028 00000000 		.word	.LANCHOR0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  247 002a FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
  248              	.LVL21:
   45:Core/Src/RFID_low_level.cpp **** }
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 6
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 6
 
 
  249              		.loc 1 45 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  300 0022 8DF80930 		strb	r3, [sp, #9]
  301 0026 7E23     		movs	r3, #126
  302 0028 8DF80D30 		strb	r3, [sp, #13]
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 7
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 7
 
 
  303 002c 0B0A     		lsrs	r3, r1, #8
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
   57:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_STOP_MULTI_POLLING_COMMAND, RFI
   58:Core/Src/RFID_low_level.cpp ****     RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
  353              		.loc 1 58 0
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 8
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 8
 
 
  354 0006 0B4B     		ldr	r3, .L25
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  404              		.save {r4, lr}
  405              	.LCFI16:
  406              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 9
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 9
 
 
  407              		.cfi_offset 4, -8
@@ -488,7 +488,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  411              	.LCFI17:
  412              		.cfi_def_cfa_offset 24
  413 0004 0446     		mov	r4, r0
-  65:Core/Src/RFID_low_level.cpp ****     uint16_t powPara = baudrate/100;
+  65:Core/Src/RFID_low_level.cpp ****     uint16_t powPara = baudrate/100; //Intended baud rate has to be divided by 100 to be used by RF
  414              		.loc 1 65 0
  415 0006 114B     		ldr	r3, .L29
  416 0008 A3FB0131 		umull	r3, r1, r3, r1
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  455              		.align	2
  456              	.L29:
  457 004c 1F85EB51 		.word	1374389535
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 10
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 10
 
 
  458              		.cfi_endproc
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  507              	.LVL42:
   78:Core/Src/RFID_low_level.cpp **** }
  508              		.loc 1 78 0
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 11
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 11
 
 
  509 002e 02B0     		add	sp, sp, #8
@@ -641,7 +641,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  545              	.LCFI23:
  546              		.cfi_def_cfa_offset 24
  547 0004 0446     		mov	r4, r0
-  82:Core/Src/RFID_low_level.cpp ****     uint16_t powerValue = powerdbm * 100;
+  82:Core/Src/RFID_low_level.cpp ****     uint16_t powerValue = powerdbm * 100; //Intended transimission power value in dbm has to be mut
  548              		.loc 1 82 0
  549 0006 01EB8101 		add	r1, r1, r1, lsl #2
  550              	.LVL45:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  559 0018 BB23     		movs	r3, #187
  560 001a 8DF80430 		strb	r3, [sp, #4]
  561 001e B623     		movs	r3, #182
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 12
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 12
 
 
  562 0020 8DF80630 		strb	r3, [sp, #6]
@@ -693,115 +693,355 @@ ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
  588              		.cfi_endproc
  589              	.LFE78:
  590              		.fnend
- 592              		.section	.rodata
+ 592              		.section	.text._ZN12RFIDCommands14set_sleep_modeEv,"ax",%progbits
  593              		.align	2
- 594              		.set	.LANCHOR0,. + 0
- 595              	.LC0:
- 596 0000 BB       		.byte	-69
- 597 0001 00       		.byte	0
- 598 0002 03       		.byte	3
- 599 0003 00       		.byte	0
- 600 0004 01       		.byte	1
- 601 0005 00       		.byte	0
- 602 0006 00       		.byte	0
- 603 0007 7E       		.byte	126
- 604              	.LC1:
- 605 0008 BB       		.byte	-69
- 606 0009 00       		.byte	0
- 607 000a 22       		.byte	34
- 608 000b 00       		.byte	0
- 609 000c 00       		.byte	0
- 610 000d 00       		.byte	0
- 611 000e 7E       		.byte	126
- 612 000f 00       		.space	1
- 613              	.LC2:
- 614 0010 BB       		.byte	-69
- 615 0011 00       		.byte	0
- 616 0012 28       		.byte	40
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 13
+ 594              		.global	_ZN12RFIDCommands14set_sleep_modeEv
+ 595              		.thumb
+ 596              		.thumb_func
+ 598              	_ZN12RFIDCommands14set_sleep_modeEv:
+ 599              		.fnstart
+ 600              	.LFB79:
+  88:Core/Src/RFID_low_level.cpp **** 
+  89:Core/Src/RFID_low_level.cpp **** void RFIDCommands::set_sleep_mode()
+  90:Core/Src/RFID_low_level.cpp **** {
+ 601              		.loc 1 90 0
+ 602              		.cfi_startproc
+ 603              		@ args = 0, pretend = 0, frame = 8
+ 604              		@ frame_needed = 0, uses_anonymous_args = 0
+ 605              	.LVL50:
+ 606 0000 10B5     		push	{r4, lr}
+ 607              		.save {r4, lr}
+ 608              	.LCFI25:
+ 609              		.cfi_def_cfa_offset 8
+ 610              		.cfi_offset 4, -8
+ 611              		.cfi_offset 14, -4
+ 612              		.pad #8
+ 613 0002 82B0     		sub	sp, sp, #8
+ 614              	.LCFI26:
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 13
 
 
- 617 0013 00       		.byte	0
- 618 0014 00       		.byte	0
- 619 0015 00       		.byte	0
- 620 0016 7E       		.byte	126
- 621 0017 00       		.space	1
- 622              	.LC3:
- 623 0018 BB       		.byte	-69
- 624 0019 00       		.byte	0
- 625 001a B7       		.byte	-73
- 626 001b 00       		.byte	0
- 627 001c 00       		.byte	0
- 628 001d 00       		.byte	0
- 629 001e 7E       		.byte	126
- 630              		.text
- 631              	.Letext0:
- 632              		.file 2 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
- 633              		.file 3 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
- 634              		.file 4 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
- 635              		.file 5 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_
- 636              		.file 6 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdi
- 637              		.file 7 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdint.h"
- 638              		.file 8 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\in
- 639              		.file 9 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdlib.h"
- 640              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 641              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 642              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 643              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 644              		.file 14 "Core/Inc/RFID_low_level.h"
- 645              		.file 15 "Drivers/CMSIS/Include/core_cm3.h"
- 646              		.file 16 "Core/Inc/usart.h"
- 647              		.file 17 "<built-in>"
-ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 14
+ 615              		.cfi_def_cfa_offset 16
+ 616 0004 0446     		mov	r4, r0
+  91:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_SLEEP_MODE_COMMAND, RFID_PA
+  92:Core/Src/RFID_low_level.cpp ****     RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 617              		.loc 1 92 0
+ 618 0006 0B4B     		ldr	r3, .L39
+ 619 0008 53F8200F 		ldr	r0, [r3, #32]!	@ unaligned
+ 620              	.LVL51:
+ 621 000c 0090     		str	r0, [sp]	@ unaligned
+ 622 000e 9A88     		ldrh	r2, [r3, #4]	@ unaligned
+ 623 0010 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 624 0012 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 625 0016 8DF80630 		strb	r3, [sp, #6]
+  93:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 626              		.loc 1 93 0
+ 627 001a 0722     		movs	r2, #7
+ 628 001c 6946     		mov	r1, sp
+ 629 001e 2046     		mov	r0, r4
+ 630 0020 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 631              	.LVL52:
+  94:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 632              		.loc 1 94 0
+ 633 0024 0722     		movs	r2, #7
+ 634 0026 6946     		mov	r1, sp
+ 635 0028 2046     		mov	r0, r4
+ 636 002a FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 637              	.LVL53:
+  95:Core/Src/RFID_low_level.cpp **** }
+ 638              		.loc 1 95 0
+ 639 002e 02B0     		add	sp, sp, #8
+ 640              	.LCFI27:
+ 641              		.cfi_def_cfa_offset 8
+ 642              		@ sp needed
+ 643 0030 10BD     		pop	{r4, pc}
+ 644              	.LVL54:
+ 645              	.L40:
+ 646 0032 00BF     		.align	2
+ 647              	.L39:
+ 648 0034 00000000 		.word	.LANCHOR0
+ 649              		.cfi_endproc
+ 650              	.LFE79:
+ 651              		.fnend
+ 653              		.section	.text._ZN12RFIDCommands19set_auto_sleep_timeEh,"ax",%progbits
+ 654              		.align	2
+ 655              		.global	_ZN12RFIDCommands19set_auto_sleep_timeEh
+ 656              		.thumb
+ 657              		.thumb_func
+ 659              	_ZN12RFIDCommands19set_auto_sleep_timeEh:
+ 660              		.fnstart
+ 661              	.LFB80:
+  96:Core/Src/RFID_low_level.cpp **** 
+  97:Core/Src/RFID_low_level.cpp **** //Time is measured in minutes,
+  98:Core/Src/RFID_low_level.cpp **** //time indicates how long will module wait before automatically enter sleep mode
+  99:Core/Src/RFID_low_level.cpp **** void RFIDCommands::set_auto_sleep_time(uint8_t time) 
+ 100:Core/Src/RFID_low_level.cpp **** {
+ 662              		.loc 1 100 0
+ 663              		.cfi_startproc
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 14
+
+
+ 664              		@ args = 0, pretend = 0, frame = 8
+ 665              		@ frame_needed = 0, uses_anonymous_args = 0
+ 666              	.LVL55:
+ 667 0000 10B5     		push	{r4, lr}
+ 668              		.save {r4, lr}
+ 669              	.LCFI28:
+ 670              		.cfi_def_cfa_offset 8
+ 671              		.cfi_offset 4, -8
+ 672              		.cfi_offset 14, -4
+ 673              		.pad #8
+ 674 0002 82B0     		sub	sp, sp, #8
+ 675              	.LCFI29:
+ 676              		.cfi_def_cfa_offset 16
+ 677 0004 0446     		mov	r4, r0
+ 101:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_ATUO_SLEEP_TIME_COMMAND, RF
+ 102:Core/Src/RFID_low_level.cpp ****     time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 678              		.loc 1 102 0
+ 679 0006 0023     		movs	r3, #0
+ 680 0008 0093     		str	r3, [sp]
+ 681 000a 0193     		str	r3, [sp, #4]
+ 682 000c BB23     		movs	r3, #187
+ 683 000e 8DF80030 		strb	r3, [sp]
+ 684 0012 1D23     		movs	r3, #29
+ 685 0014 8DF80230 		strb	r3, [sp, #2]
+ 686 0018 0123     		movs	r3, #1
+ 687 001a 8DF80430 		strb	r3, [sp, #4]
+ 688 001e 7E23     		movs	r3, #126
+ 689 0020 8DF80730 		strb	r3, [sp, #7]
+ 690 0024 8DF80510 		strb	r1, [sp, #5]
+ 103:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 691              		.loc 1 103 0
+ 692 0028 0822     		movs	r2, #8
+ 693 002a 6946     		mov	r1, sp
+ 694              	.LVL56:
+ 695 002c FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 696              	.LVL57:
+ 104:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 697              		.loc 1 104 0
+ 698 0030 0822     		movs	r2, #8
+ 699 0032 6946     		mov	r1, sp
+ 700 0034 2046     		mov	r0, r4
+ 701 0036 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 702              	.LVL58:
+ 105:Core/Src/RFID_low_level.cpp **** }
+ 703              		.loc 1 105 0
+ 704 003a 02B0     		add	sp, sp, #8
+ 705              	.LCFI30:
+ 706              		.cfi_def_cfa_offset 8
+ 707              		@ sp needed
+ 708 003c 10BD     		pop	{r4, pc}
+ 709              		.cfi_endproc
+ 710              	.LFE80:
+ 711              		.fnend
+ 713 003e 00BF     		.section	.text._ZN12RFIDCommands14enter_IDLEmodeEh,"ax",%progbits
+ 714              		.align	2
+ 715              		.global	_ZN12RFIDCommands14enter_IDLEmodeEh
+ 716              		.thumb
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 15
+
+
+ 717              		.thumb_func
+ 719              	_ZN12RFIDCommands14enter_IDLEmodeEh:
+ 720              		.fnstart
+ 721              	.LFB81:
+ 106:Core/Src/RFID_low_level.cpp **** 
+ 107:Core/Src/RFID_low_level.cpp **** //Time is measured in minutes,
+ 108:Core/Src/RFID_low_level.cpp **** //time indicates how long will module wait before automatically enter IDLE mode
+ 109:Core/Src/RFID_low_level.cpp **** void RFIDCommands::enter_IDLEmode(uint8_t time) 
+ 110:Core/Src/RFID_low_level.cpp **** {
+ 722              		.loc 1 110 0
+ 723              		.cfi_startproc
+ 724              		@ args = 0, pretend = 0, frame = 16
+ 725              		@ frame_needed = 0, uses_anonymous_args = 0
+ 726              	.LVL59:
+ 727 0000 10B5     		push	{r4, lr}
+ 728              		.save {r4, lr}
+ 729              	.LCFI31:
+ 730              		.cfi_def_cfa_offset 8
+ 731              		.cfi_offset 4, -8
+ 732              		.cfi_offset 14, -4
+ 733              		.pad #16
+ 734 0002 84B0     		sub	sp, sp, #16
+ 735              	.LCFI32:
+ 736              		.cfi_def_cfa_offset 24
+ 737 0004 0446     		mov	r4, r0
+ 111:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_IDLE_COMMAND, RFID_PACKET_L
+ 112:Core/Src/RFID_low_level.cpp ****     RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 738              		.loc 1 112 0
+ 739 0006 0023     		movs	r3, #0
+ 740 0008 0193     		str	r3, [sp, #4]
+ 741 000a ADF80C30 		strh	r3, [sp, #12]	@ movhi
+ 742 000e BB23     		movs	r3, #187
+ 743 0010 8DF80430 		strb	r3, [sp, #4]
+ 744 0014 0423     		movs	r3, #4
+ 745 0016 8DF80630 		strb	r3, [sp, #6]
+ 746 001a 0323     		movs	r3, #3
+ 747 001c 8DF80830 		strb	r3, [sp, #8]
+ 748 0020 0123     		movs	r3, #1
+ 749 0022 8DF80930 		strb	r3, [sp, #9]
+ 750 0026 8DF80A30 		strb	r3, [sp, #10]
+ 751 002a 7E23     		movs	r3, #126
+ 752 002c 8DF80D30 		strb	r3, [sp, #13]
+ 753 0030 8DF80B10 		strb	r1, [sp, #11]
+ 113:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 754              		.loc 1 113 0
+ 755 0034 0A22     		movs	r2, #10
+ 756 0036 01A9     		add	r1, sp, #4
+ 757              	.LVL60:
+ 758 0038 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 759              	.LVL61:
+ 114:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 760              		.loc 1 114 0
+ 761 003c 0A22     		movs	r2, #10
+ 762 003e 01A9     		add	r1, sp, #4
+ 763 0040 2046     		mov	r0, r4
+ 764 0042 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 765              	.LVL62:
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 16
+
+
+ 115:Core/Src/RFID_low_level.cpp **** }
+ 766              		.loc 1 115 0
+ 767 0046 04B0     		add	sp, sp, #16
+ 768              	.LCFI33:
+ 769              		.cfi_def_cfa_offset 8
+ 770              		@ sp needed
+ 771 0048 10BD     		pop	{r4, pc}
+ 772              		.cfi_endproc
+ 773              	.LFE81:
+ 774              		.fnend
+ 776 004a 00BF     		.section	.rodata
+ 777              		.align	2
+ 778              		.set	.LANCHOR0,. + 0
+ 779              	.LC0:
+ 780 0000 BB       		.byte	-69
+ 781 0001 00       		.byte	0
+ 782 0002 03       		.byte	3
+ 783 0003 00       		.byte	0
+ 784 0004 01       		.byte	1
+ 785 0005 00       		.byte	0
+ 786 0006 00       		.byte	0
+ 787 0007 7E       		.byte	126
+ 788              	.LC1:
+ 789 0008 BB       		.byte	-69
+ 790 0009 00       		.byte	0
+ 791 000a 22       		.byte	34
+ 792 000b 00       		.byte	0
+ 793 000c 00       		.byte	0
+ 794 000d 00       		.byte	0
+ 795 000e 7E       		.byte	126
+ 796 000f 00       		.space	1
+ 797              	.LC2:
+ 798 0010 BB       		.byte	-69
+ 799 0011 00       		.byte	0
+ 800 0012 28       		.byte	40
+ 801 0013 00       		.byte	0
+ 802 0014 00       		.byte	0
+ 803 0015 00       		.byte	0
+ 804 0016 7E       		.byte	126
+ 805 0017 00       		.space	1
+ 806              	.LC3:
+ 807 0018 BB       		.byte	-69
+ 808 0019 00       		.byte	0
+ 809 001a B7       		.byte	-73
+ 810 001b 00       		.byte	0
+ 811 001c 00       		.byte	0
+ 812 001d 00       		.byte	0
+ 813 001e 7E       		.byte	126
+ 814 001f 00       		.space	1
+ 815              	.LC4:
+ 816 0020 BB       		.byte	-69
+ 817 0021 00       		.byte	0
+ 818 0022 17       		.byte	23
+ 819 0023 00       		.byte	0
+ 820 0024 00       		.byte	0
+ 821 0025 00       		.byte	0
+ 822 0026 7E       		.byte	126
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 17
+
+
+ 823              		.text
+ 824              	.Letext0:
+ 825              		.file 2 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 826              		.file 3 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 827              		.file 4 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 828              		.file 5 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_
+ 829              		.file 6 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdi
+ 830              		.file 7 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdint.h"
+ 831              		.file 8 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\in
+ 832              		.file 9 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdlib.h"
+ 833              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 834              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 835              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 836              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 837              		.file 14 "Core/Inc/RFID_low_level.h"
+ 838              		.file 15 "Drivers/CMSIS/Include/core_cm3.h"
+ 839              		.file 16 "Core/Inc/usart.h"
+ 840              		.file 17 "<built-in>"
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 18
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 RFID_low_level.cpp
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:20     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:25     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 _ZN12RFIDCommands8txpacketEPKhj
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:51     .text._ZN12RFIDCommands8txpacketEPKhj:0000000c $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:20     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:25     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 _ZN12RFIDCommands8txpacketEPKhj
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:51     .text._ZN12RFIDCommands8txpacketEPKhj:0000000c $d
 .ARM.extab.text._ZN12RFIDCommands8txpacketEPKhj:00000000 $d
 .ARM.exidx.text._ZN12RFIDCommands8txpacketEPKhj:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:57     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:62     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 _ZN12RFIDCommands8rxpacketEPhh
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:85     .text._ZN12RFIDCommands8rxpacketEPhh:0000000c $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:57     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:62     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 _ZN12RFIDCommands8rxpacketEPhh
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:85     .text._ZN12RFIDCommands8rxpacketEPhh:0000000c $d
 .ARM.extab.text._ZN12RFIDCommands8rxpacketEPhh:00000000 $d
 .ARM.exidx.text._ZN12RFIDCommands8rxpacketEPhh:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:91     .text._ZN12RFIDCommands8checksumEPhj:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:96     .text._ZN12RFIDCommands8checksumEPhj:00000000 _ZN12RFIDCommands8checksumEPhj
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:91     .text._ZN12RFIDCommands8checksumEPhj:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:96     .text._ZN12RFIDCommands8checksumEPhj:00000000 _ZN12RFIDCommands8checksumEPhj
 .ARM.exidx.text._ZN12RFIDCommands8checksumEPhj:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:145    .text._ZN12RFIDCommands15get_module_infoEv:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:150    .text._ZN12RFIDCommands15get_module_infoEv:00000000 _ZN12RFIDCommands15get_module_infoEv
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:198    .text._ZN12RFIDCommands15get_module_infoEv:00000028 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:145    .text._ZN12RFIDCommands15get_module_infoEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:150    .text._ZN12RFIDCommands15get_module_infoEv:00000000 _ZN12RFIDCommands15get_module_infoEv
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:198    .text._ZN12RFIDCommands15get_module_infoEv:00000028 $d
 .ARM.exidx.text._ZN12RFIDCommands15get_module_infoEv:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:204    .text._ZN12RFIDCommands14single_pollingEv:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:209    .text._ZN12RFIDCommands14single_pollingEv:00000000 _ZN12RFIDCommands14single_pollingEv
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:259    .text._ZN12RFIDCommands14single_pollingEv:00000034 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:204    .text._ZN12RFIDCommands14single_pollingEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:209    .text._ZN12RFIDCommands14single_pollingEv:00000000 _ZN12RFIDCommands14single_pollingEv
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:259    .text._ZN12RFIDCommands14single_pollingEv:00000034 $d
 .ARM.exidx.text._ZN12RFIDCommands14single_pollingEv:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:265    .text._ZN12RFIDCommands13multi_pollingEt:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:270    .text._ZN12RFIDCommands13multi_pollingEt:00000000 _ZN12RFIDCommands13multi_pollingEt
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:265    .text._ZN12RFIDCommands13multi_pollingEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:270    .text._ZN12RFIDCommands13multi_pollingEt:00000000 _ZN12RFIDCommands13multi_pollingEt
 .ARM.exidx.text._ZN12RFIDCommands13multi_pollingEt:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:329    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:334    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 _ZN12RFIDCommands18stop_multi_pollingEv
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:384    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000034 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:329    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:334    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 _ZN12RFIDCommands18stop_multi_pollingEv
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:384    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000034 $d
 .ARM.exidx.text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:390    .text._ZN12RFIDCommands12set_baudrateEt:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:395    .text._ZN12RFIDCommands12set_baudrateEt:00000000 _ZN12RFIDCommands12set_baudrateEt
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:457    .text._ZN12RFIDCommands12set_baudrateEt:0000004c $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:390    .text._ZN12RFIDCommands12set_baudrateEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:395    .text._ZN12RFIDCommands12set_baudrateEt:00000000 _ZN12RFIDCommands12set_baudrateEt
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:457    .text._ZN12RFIDCommands12set_baudrateEt:0000004c $d
 .ARM.exidx.text._ZN12RFIDCommands12set_baudrateEt:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:463    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:468    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 _ZN12RFIDCommands17get_transmitpowerEv
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:518    .text._ZN12RFIDCommands17get_transmitpowerEv:00000034 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:463    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:468    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 _ZN12RFIDCommands17get_transmitpowerEv
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:518    .text._ZN12RFIDCommands17get_transmitpowerEv:00000034 $d
 .ARM.exidx.text._ZN12RFIDCommands17get_transmitpowerEv:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:524    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 $t
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:529    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 _ZN12RFIDCommands17set_transmitpowerEt
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:524    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:529    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 _ZN12RFIDCommands17set_transmitpowerEt
 .ARM.exidx.text._ZN12RFIDCommands17set_transmitpowerEt:00000000 $d
-C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:593    .rodata:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:593    .text._ZN12RFIDCommands14set_sleep_modeEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:598    .text._ZN12RFIDCommands14set_sleep_modeEv:00000000 _ZN12RFIDCommands14set_sleep_modeEv
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:648    .text._ZN12RFIDCommands14set_sleep_modeEv:00000034 $d
+.ARM.exidx.text._ZN12RFIDCommands14set_sleep_modeEv:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:654    .text._ZN12RFIDCommands19set_auto_sleep_timeEh:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:659    .text._ZN12RFIDCommands19set_auto_sleep_timeEh:00000000 _ZN12RFIDCommands19set_auto_sleep_timeEh
+.ARM.exidx.text._ZN12RFIDCommands19set_auto_sleep_timeEh:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:714    .text._ZN12RFIDCommands14enter_IDLEmodeEh:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:719    .text._ZN12RFIDCommands14enter_IDLEmodeEh:00000000 _ZN12RFIDCommands14enter_IDLEmodeEh
+.ARM.exidx.text._ZN12RFIDCommands14enter_IDLEmodeEh:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s:777    .rodata:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Transmit_IT
 huart1
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccQAqP51.s 			page 19
+
+
 __aeabi_unwind_cpp_pr1
 HAL_UART_Receive_IT
 __aeabi_unwind_cpp_pr0

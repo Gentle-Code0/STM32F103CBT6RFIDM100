@@ -62,7 +62,7 @@ void RFIDCommands::stop_multi_polling()
 
 void RFIDCommands::set_baudrate(uint16_t baudrate)
 {
-    uint16_t powPara = baudrate/100;
+    uint16_t powPara = baudrate/100; //Intended baud rate has to be divided by 100 to be used by RFID module
     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_BAUDRATE_COMMAND, RFID_PACKET_LENGTH_0002, 
     uint8_t((powPara >> 8) & 0xFF), uint8_t(powPara & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
     checksum(data, sizeof(data));
@@ -79,9 +79,37 @@ void RFIDCommands::get_transmitpower()
 
 void RFIDCommands::set_transmitpower(uint16_t powerdbm)
 {
-    uint16_t powerValue = powerdbm * 100;
+    uint16_t powerValue = powerdbm * 100; //Intended transimission power value in dbm has to be mutiplied by 100 to be used by RFID module
     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_TRANSMIT_POWER_COMMAND, RFID_PACKET_LENGTH_0001,
     uint8_t((powerValue >> 8) & 0xFF), uint8_t(powerValue & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+    checksum(data, sizeof(data));
+    txpacket(data, sizeof(data));
+}
+
+void RFIDCommands::set_sleep_mode()
+{
+    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_SLEEP_MODE_COMMAND, RFID_PACKET_LENGTH_0000, 
+    RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+    checksum(data, sizeof(data));
+    txpacket(data, sizeof(data));
+}
+
+//Time is measured in minutes,
+//time indicates how long will module wait before automatically enter sleep mode
+void RFIDCommands::set_auto_sleep_time(uint8_t time) 
+{
+    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_ATUO_SLEEP_TIME_COMMAND, RFID_PACKET_LENGTH_0001, 
+    time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+    checksum(data, sizeof(data));
+    txpacket(data, sizeof(data));
+}
+
+//Time is measured in minutes,
+//time indicates how long will module wait before automatically enter IDLE mode
+void RFIDCommands::enter_IDLEmode(uint8_t time) 
+{
+    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_IDLE_COMMAND, RFID_PACKET_LENGTH_0003, 
+    RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
     checksum(data, sizeof(data));
     txpacket(data, sizeof(data));
 }

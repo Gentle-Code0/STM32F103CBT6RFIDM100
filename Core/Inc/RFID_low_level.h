@@ -22,8 +22,9 @@ public:
     void set_baudrate(uint16_t baudrate);
     void get_transmitpower();
     void set_transmitpower(uint16_t powerdbm);
-    void power(uint16_t dBm);
-    void changearea(int areacode);
+    void set_sleep_mode();
+    void set_auto_sleep_time(uint8_t time);
+    void enter_IDLEmode(uint8_t time);
 
     void checksum(uint8_t bytes[], size_t size);
 
