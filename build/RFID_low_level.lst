@@ -1,0 +1,807 @@
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"RFID_low_level.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN12RFIDCommands8txpacketEPKhj,"ax",%progbits
+  20              		.align	2
+  21              		.global	_ZN12RFIDCommands8txpacketEPKhj
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN12RFIDCommands8txpacketEPKhj:
+  26              		.fnstart
+  27              	.LFB69:
+  28              		.file 1 "Core/Src/RFID_low_level.cpp"
+   1:Core/Src/RFID_low_level.cpp **** #include "RFID_low_level.h"
+   2:Core/Src/RFID_low_level.cpp **** 
+   3:Core/Src/RFID_low_level.cpp **** 
+   4:Core/Src/RFID_low_level.cpp **** void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
+   5:Core/Src/RFID_low_level.cpp **** {
+  29              		.loc 1 5 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              	.LVL0:
+  34 0000 08B5     		push	{r3, lr}
+  35              		.save {r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+   6:Core/Src/RFID_low_level.cpp ****     HAL_UART_Transmit_IT(&FIRST_RFID_UART, bytes, size);
+  40              		.loc 1 6 0
+  41 0002 92B2     		uxth	r2, r2
+  42              	.LVL1:
+  43 0004 0148     		ldr	r0, .L3
+  44              	.LVL2:
+  45 0006 FFF7FEFF 		bl	HAL_UART_Transmit_IT
+  46              	.LVL3:
+  47 000a 08BD     		pop	{r3, pc}
+  48              	.L4:
+  49              		.align	2
+  50              	.L3:
+  51 000c 00000000 		.word	huart1
+  52              		.cfi_endproc
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 2
+
+
+  53              	.LFE69:
+  54              		.fnend
+  56              		.section	.text._ZN12RFIDCommands8rxpacketEPhh,"ax",%progbits
+  57              		.align	2
+  58              		.global	_ZN12RFIDCommands8rxpacketEPhh
+  59              		.thumb
+  60              		.thumb_func
+  62              	_ZN12RFIDCommands8rxpacketEPhh:
+  63              		.fnstart
+  64              	.LFB70:
+   7:Core/Src/RFID_low_level.cpp ****     //HAL_UART_Transmit_IT(&SECOND_RFID_UART, &byte, size);
+   8:Core/Src/RFID_low_level.cpp ****     //If second RFID module is applied,
+   9:Core/Src/RFID_low_level.cpp ****     //one can add another line of transmit code for that second RFID module like above    
+  10:Core/Src/RFID_low_level.cpp **** }
+  11:Core/Src/RFID_low_level.cpp **** 
+  12:Core/Src/RFID_low_level.cpp **** void RFIDCommands::rxpacket(uint8_t bytes[], uint8_t size) 
+  13:Core/Src/RFID_low_level.cpp ****     { 
+  65              		.loc 1 13 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              	.LVL4:
+  70 0000 08B5     		push	{r3, lr}
+  71              		.save {r3, lr}
+  72              	.LCFI1:
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 3, -8
+  75              		.cfi_offset 14, -4
+  14:Core/Src/RFID_low_level.cpp ****         HAL_UART_Receive_IT(&FIRST_RFID_UART, bytes, size); 
+  76              		.loc 1 14 0
+  77 0002 0248     		ldr	r0, .L7
+  78              	.LVL5:
+  79 0004 FFF7FEFF 		bl	HAL_UART_Receive_IT
+  80              	.LVL6:
+  81 0008 08BD     		pop	{r3, pc}
+  82              	.L8:
+  83 000a 00BF     		.align	2
+  84              	.L7:
+  85 000c 00000000 		.word	huart1
+  86              		.cfi_endproc
+  87              	.LFE70:
+  88              		.fnend
+  90              		.section	.text._ZN12RFIDCommands8checksumEPhj,"ax",%progbits
+  91              		.align	2
+  92              		.global	_ZN12RFIDCommands8checksumEPhj
+  93              		.thumb
+  94              		.thumb_func
+  96              	_ZN12RFIDCommands8checksumEPhj:
+  97              		.fnstart
+  98              	.LFB71:
+  15:Core/Src/RFID_low_level.cpp ****         //HAL_UART_Receive_IT(&SECOND_RFID_UART, &byte, size);
+  16:Core/Src/RFID_low_level.cpp ****         //If second RFID module is applied,
+  17:Core/Src/RFID_low_level.cpp ****         //one can add another line of transmit code for that second RFID module like above
+  18:Core/Src/RFID_low_level.cpp ****     }
+  19:Core/Src/RFID_low_level.cpp **** 
+  20:Core/Src/RFID_low_level.cpp **** /*The Checksum is the sum from the Frame Type byte to the last Instruction Parameter byte,
+  21:Core/Src/RFID_low_level.cpp **** and takes only the sum's lowest byte (LSB). Checksum is used to verify if the transmit is correct*/
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 3
+
+
+  22:Core/Src/RFID_low_level.cpp **** void RFIDCommands::checksum(uint8_t bytes[], size_t size)
+  23:Core/Src/RFID_low_level.cpp **** {
+  99              		.loc 1 23 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 104              	.LVL7:
+ 105 0000 10B4     		push	{r4}
+ 106              	.LCFI2:
+ 107              		.cfi_def_cfa_offset 4
+ 108              		.cfi_offset 4, -4
+ 109              	.LVL8:
+ 110              	.LBB2:
+  24:Core/Src/RFID_low_level.cpp ****     uint8_t checksum;
+  25:Core/Src/RFID_low_level.cpp ****     for (size_t i = 1; i < size-2; i++) {
+ 111              		.loc 1 25 0
+ 112 0002 0123     		movs	r3, #1
+ 113              	.LVL9:
+ 114              	.L11:
+ 115              		.loc 1 25 0 is_stmt 0 discriminator 3
+ 116 0004 941E     		subs	r4, r2, #2
+ 117 0006 A342     		cmp	r3, r4
+ 118 0008 04D2     		bcs	.L10
+  26:Core/Src/RFID_low_level.cpp ****         checksum += bytes[i];
+ 119              		.loc 1 26 0 is_stmt 1 discriminator 2
+ 120 000a CC5C     		ldrb	r4, [r1, r3]	@ zero_extendqisi2
+ 121 000c 2044     		add	r0, r0, r4
+ 122              	.LVL10:
+ 123 000e C0B2     		uxtb	r0, r0
+ 124              	.LVL11:
+  25:Core/Src/RFID_low_level.cpp ****         checksum += bytes[i];
+ 125              		.loc 1 25 0 discriminator 2
+ 126 0010 0133     		adds	r3, r3, #1
+ 127              	.LVL12:
+ 128 0012 F7E7     		b	.L11
+ 129              	.L10:
+ 130              	.LBE2:
+  27:Core/Src/RFID_low_level.cpp ****     }
+  28:Core/Src/RFID_low_level.cpp ****     bytes[size - 2] = checksum;
+ 131              		.loc 1 28 0
+ 132 0014 0855     		strb	r0, [r1, r4]
+  29:Core/Src/RFID_low_level.cpp **** }
+ 133              		.loc 1 29 0
+ 134 0016 10BC     		pop	{r4}
+ 135              	.LCFI3:
+ 136              		.cfi_restore 4
+ 137              		.cfi_def_cfa_offset 0
+ 138 0018 7047     		bx	lr
+ 139              		.cfi_endproc
+ 140              	.LFE71:
+ 141              		.cantunwind
+ 142              		.fnend
+ 144 001a 00BF     		.section	.text._ZN12RFIDCommands15get_module_infoEv,"ax",%progbits
+ 145              		.align	2
+ 146              		.global	_ZN12RFIDCommands15get_module_infoEv
+ 147              		.thumb
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 4
+
+
+ 148              		.thumb_func
+ 150              	_ZN12RFIDCommands15get_module_infoEv:
+ 151              		.fnstart
+ 152              	.LFB72:
+  30:Core/Src/RFID_low_level.cpp **** 
+  31:Core/Src/RFID_low_level.cpp **** void RFIDCommands::get_module_info()
+  32:Core/Src/RFID_low_level.cpp **** {
+ 153              		.loc 1 32 0
+ 154              		.cfi_startproc
+ 155              		@ args = 0, pretend = 0, frame = 8
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157              	.LVL13:
+ 158 0000 10B5     		push	{r4, lr}
+ 159              		.save {r4, lr}
+ 160              	.LCFI4:
+ 161              		.cfi_def_cfa_offset 8
+ 162              		.cfi_offset 4, -8
+ 163              		.cfi_offset 14, -4
+ 164              		.pad #8
+ 165 0002 82B0     		sub	sp, sp, #8
+ 166              	.LCFI5:
+ 167              		.cfi_def_cfa_offset 16
+ 168 0004 0446     		mov	r4, r0
+  33:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_MODULE_INFO_COMMAND, RFID_P
+  34:Core/Src/RFID_low_level.cpp ****     RFID_HARDWARE_VERSION_PARAMETER, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 169              		.loc 1 34 0
+ 170 0006 084A     		ldr	r2, .L15
+ 171 0008 6B46     		mov	r3, sp
+ 172 000a 1068     		ldr	r0, [r2]	@ unaligned
+ 173              	.LVL14:
+ 174 000c 5168     		ldr	r1, [r2, #4]	@ unaligned
+ 175 000e 03C3     		stmia	r3!, {r0, r1}
+  35:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 176              		.loc 1 35 0
+ 177 0010 0822     		movs	r2, #8
+ 178 0012 6946     		mov	r1, sp
+ 179 0014 2046     		mov	r0, r4
+ 180 0016 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 181              	.LVL15:
+  36:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 182              		.loc 1 36 0
+ 183 001a 0822     		movs	r2, #8
+ 184 001c 6946     		mov	r1, sp
+ 185 001e 2046     		mov	r0, r4
+ 186 0020 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 187              	.LVL16:
+  37:Core/Src/RFID_low_level.cpp **** }
+ 188              		.loc 1 37 0
+ 189 0024 02B0     		add	sp, sp, #8
+ 190              	.LCFI6:
+ 191              		.cfi_def_cfa_offset 8
+ 192              		@ sp needed
+ 193 0026 10BD     		pop	{r4, pc}
+ 194              	.LVL17:
+ 195              	.L16:
+ 196              		.align	2
+ 197              	.L15:
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 5
+
+
+ 198 0028 00000000 		.word	.LANCHOR0
+ 199              		.cfi_endproc
+ 200              	.LFE72:
+ 201              		.fnend
+ 203              		.section	.text._ZN12RFIDCommands14single_pollingEv,"ax",%progbits
+ 204              		.align	2
+ 205              		.global	_ZN12RFIDCommands14single_pollingEv
+ 206              		.thumb
+ 207              		.thumb_func
+ 209              	_ZN12RFIDCommands14single_pollingEv:
+ 210              		.fnstart
+ 211              	.LFB73:
+  38:Core/Src/RFID_low_level.cpp **** 
+  39:Core/Src/RFID_low_level.cpp **** void RFIDCommands::single_polling()
+  40:Core/Src/RFID_low_level.cpp **** {
+ 212              		.loc 1 40 0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 8
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216              	.LVL18:
+ 217 0000 10B5     		push	{r4, lr}
+ 218              		.save {r4, lr}
+ 219              	.LCFI7:
+ 220              		.cfi_def_cfa_offset 8
+ 221              		.cfi_offset 4, -8
+ 222              		.cfi_offset 14, -4
+ 223              		.pad #8
+ 224 0002 82B0     		sub	sp, sp, #8
+ 225              	.LCFI8:
+ 226              		.cfi_def_cfa_offset 16
+ 227 0004 0446     		mov	r4, r0
+  41:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SINGLE_POLLING_COMMAND, RFID_PA
+  42:Core/Src/RFID_low_level.cpp ****     RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 228              		.loc 1 42 0
+ 229 0006 0B4B     		ldr	r3, .L19
+ 230 0008 53F8080F 		ldr	r0, [r3, #8]!	@ unaligned
+ 231              	.LVL19:
+ 232 000c 0090     		str	r0, [sp]	@ unaligned
+ 233 000e 9A88     		ldrh	r2, [r3, #4]	@ unaligned
+ 234 0010 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 235 0012 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 236 0016 8DF80630 		strb	r3, [sp, #6]
+  43:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 237              		.loc 1 43 0
+ 238 001a 0722     		movs	r2, #7
+ 239 001c 6946     		mov	r1, sp
+ 240 001e 2046     		mov	r0, r4
+ 241 0020 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 242              	.LVL20:
+  44:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 243              		.loc 1 44 0
+ 244 0024 0722     		movs	r2, #7
+ 245 0026 6946     		mov	r1, sp
+ 246 0028 2046     		mov	r0, r4
+ 247 002a FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 248              	.LVL21:
+  45:Core/Src/RFID_low_level.cpp **** }
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 6
+
+
+ 249              		.loc 1 45 0
+ 250 002e 02B0     		add	sp, sp, #8
+ 251              	.LCFI9:
+ 252              		.cfi_def_cfa_offset 8
+ 253              		@ sp needed
+ 254 0030 10BD     		pop	{r4, pc}
+ 255              	.LVL22:
+ 256              	.L20:
+ 257 0032 00BF     		.align	2
+ 258              	.L19:
+ 259 0034 00000000 		.word	.LANCHOR0
+ 260              		.cfi_endproc
+ 261              	.LFE73:
+ 262              		.fnend
+ 264              		.section	.text._ZN12RFIDCommands13multi_pollingEt,"ax",%progbits
+ 265              		.align	2
+ 266              		.global	_ZN12RFIDCommands13multi_pollingEt
+ 267              		.thumb
+ 268              		.thumb_func
+ 270              	_ZN12RFIDCommands13multi_pollingEt:
+ 271              		.fnstart
+ 272              	.LFB74:
+  46:Core/Src/RFID_low_level.cpp **** 
+  47:Core/Src/RFID_low_level.cpp **** void RFIDCommands::multi_polling(uint16_t pollingTimes)
+  48:Core/Src/RFID_low_level.cpp **** {
+ 273              		.loc 1 48 0
+ 274              		.cfi_startproc
+ 275              		@ args = 0, pretend = 0, frame = 16
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              	.LVL23:
+ 278 0000 10B5     		push	{r4, lr}
+ 279              		.save {r4, lr}
+ 280              	.LCFI10:
+ 281              		.cfi_def_cfa_offset 8
+ 282              		.cfi_offset 4, -8
+ 283              		.cfi_offset 14, -4
+ 284              		.pad #16
+ 285 0002 84B0     		sub	sp, sp, #16
+ 286              	.LCFI11:
+ 287              		.cfi_def_cfa_offset 24
+ 288 0004 0446     		mov	r4, r0
+  49:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_MULTI_POLLING_COMMAND, RFID_PAC
+  50:Core/Src/RFID_low_level.cpp ****     RFID_MULTI_POLLING_RESERVED_BYTE, uint8_t((pollingTimes >> 8) & 0xFF), uint8_t(pollingTimes & 0
+ 289              		.loc 1 50 0
+ 290 0006 0023     		movs	r3, #0
+ 291 0008 0193     		str	r3, [sp, #4]
+ 292 000a ADF80C30 		strh	r3, [sp, #12]	@ movhi
+ 293 000e BB23     		movs	r3, #187
+ 294 0010 8DF80430 		strb	r3, [sp, #4]
+ 295 0014 2723     		movs	r3, #39
+ 296 0016 8DF80630 		strb	r3, [sp, #6]
+ 297 001a 0323     		movs	r3, #3
+ 298 001c 8DF80830 		strb	r3, [sp, #8]
+ 299 0020 2223     		movs	r3, #34
+ 300 0022 8DF80930 		strb	r3, [sp, #9]
+ 301 0026 7E23     		movs	r3, #126
+ 302 0028 8DF80D30 		strb	r3, [sp, #13]
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 7
+
+
+ 303 002c 0B0A     		lsrs	r3, r1, #8
+ 304 002e 8DF80A30 		strb	r3, [sp, #10]
+ 305 0032 8DF80B10 		strb	r1, [sp, #11]
+  51:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 306              		.loc 1 51 0
+ 307 0036 0A22     		movs	r2, #10
+ 308 0038 01A9     		add	r1, sp, #4
+ 309              	.LVL24:
+ 310 003a FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 311              	.LVL25:
+  52:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 312              		.loc 1 52 0
+ 313 003e 0A22     		movs	r2, #10
+ 314 0040 01A9     		add	r1, sp, #4
+ 315 0042 2046     		mov	r0, r4
+ 316 0044 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 317              	.LVL26:
+  53:Core/Src/RFID_low_level.cpp **** }
+ 318              		.loc 1 53 0
+ 319 0048 04B0     		add	sp, sp, #16
+ 320              	.LCFI12:
+ 321              		.cfi_def_cfa_offset 8
+ 322              		@ sp needed
+ 323 004a 10BD     		pop	{r4, pc}
+ 324              		.cfi_endproc
+ 325              	.LFE74:
+ 326              		.fnend
+ 328              		.section	.text._ZN12RFIDCommands18stop_multi_pollingEv,"ax",%progbits
+ 329              		.align	2
+ 330              		.global	_ZN12RFIDCommands18stop_multi_pollingEv
+ 331              		.thumb
+ 332              		.thumb_func
+ 334              	_ZN12RFIDCommands18stop_multi_pollingEv:
+ 335              		.fnstart
+ 336              	.LFB75:
+  54:Core/Src/RFID_low_level.cpp **** 
+  55:Core/Src/RFID_low_level.cpp **** void RFIDCommands::stop_multi_polling()
+  56:Core/Src/RFID_low_level.cpp **** {
+ 337              		.loc 1 56 0
+ 338              		.cfi_startproc
+ 339              		@ args = 0, pretend = 0, frame = 8
+ 340              		@ frame_needed = 0, uses_anonymous_args = 0
+ 341              	.LVL27:
+ 342 0000 10B5     		push	{r4, lr}
+ 343              		.save {r4, lr}
+ 344              	.LCFI13:
+ 345              		.cfi_def_cfa_offset 8
+ 346              		.cfi_offset 4, -8
+ 347              		.cfi_offset 14, -4
+ 348              		.pad #8
+ 349 0002 82B0     		sub	sp, sp, #8
+ 350              	.LCFI14:
+ 351              		.cfi_def_cfa_offset 16
+ 352 0004 0446     		mov	r4, r0
+  57:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_STOP_MULTI_POLLING_COMMAND, RFI
+  58:Core/Src/RFID_low_level.cpp ****     RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 353              		.loc 1 58 0
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 8
+
+
+ 354 0006 0B4B     		ldr	r3, .L25
+ 355 0008 53F8100F 		ldr	r0, [r3, #16]!	@ unaligned
+ 356              	.LVL28:
+ 357 000c 0090     		str	r0, [sp]	@ unaligned
+ 358 000e 9A88     		ldrh	r2, [r3, #4]	@ unaligned
+ 359 0010 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 360 0012 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 361 0016 8DF80630 		strb	r3, [sp, #6]
+  59:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 362              		.loc 1 59 0
+ 363 001a 0722     		movs	r2, #7
+ 364 001c 6946     		mov	r1, sp
+ 365 001e 2046     		mov	r0, r4
+ 366 0020 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 367              	.LVL29:
+  60:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 368              		.loc 1 60 0
+ 369 0024 0722     		movs	r2, #7
+ 370 0026 6946     		mov	r1, sp
+ 371 0028 2046     		mov	r0, r4
+ 372 002a FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 373              	.LVL30:
+  61:Core/Src/RFID_low_level.cpp **** }
+ 374              		.loc 1 61 0
+ 375 002e 02B0     		add	sp, sp, #8
+ 376              	.LCFI15:
+ 377              		.cfi_def_cfa_offset 8
+ 378              		@ sp needed
+ 379 0030 10BD     		pop	{r4, pc}
+ 380              	.LVL31:
+ 381              	.L26:
+ 382 0032 00BF     		.align	2
+ 383              	.L25:
+ 384 0034 00000000 		.word	.LANCHOR0
+ 385              		.cfi_endproc
+ 386              	.LFE75:
+ 387              		.fnend
+ 389              		.section	.text._ZN12RFIDCommands12set_baudrateEt,"ax",%progbits
+ 390              		.align	2
+ 391              		.global	_ZN12RFIDCommands12set_baudrateEt
+ 392              		.thumb
+ 393              		.thumb_func
+ 395              	_ZN12RFIDCommands12set_baudrateEt:
+ 396              		.fnstart
+ 397              	.LFB76:
+  62:Core/Src/RFID_low_level.cpp **** 
+  63:Core/Src/RFID_low_level.cpp **** void RFIDCommands::set_baudrate(uint16_t baudrate)
+  64:Core/Src/RFID_low_level.cpp **** {
+ 398              		.loc 1 64 0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 16
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              	.LVL32:
+ 403 0000 10B5     		push	{r4, lr}
+ 404              		.save {r4, lr}
+ 405              	.LCFI16:
+ 406              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 9
+
+
+ 407              		.cfi_offset 4, -8
+ 408              		.cfi_offset 14, -4
+ 409              		.pad #16
+ 410 0002 84B0     		sub	sp, sp, #16
+ 411              	.LCFI17:
+ 412              		.cfi_def_cfa_offset 24
+ 413 0004 0446     		mov	r4, r0
+  65:Core/Src/RFID_low_level.cpp ****     uint16_t powPara = baudrate/100;
+ 414              		.loc 1 65 0
+ 415 0006 114B     		ldr	r3, .L29
+ 416 0008 A3FB0131 		umull	r3, r1, r3, r1
+ 417              	.LVL33:
+ 418 000c 4909     		lsrs	r1, r1, #5
+ 419              	.LVL34:
+  66:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_BAUDRATE_COMMAND, RFID_PACK
+  67:Core/Src/RFID_low_level.cpp ****     uint8_t((powPara >> 8) & 0xFF), uint8_t(powPara & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 420              		.loc 1 67 0
+ 421 000e 0023     		movs	r3, #0
+ 422 0010 0193     		str	r3, [sp, #4]
+ 423 0012 0293     		str	r3, [sp, #8]
+ 424 0014 BB23     		movs	r3, #187
+ 425 0016 8DF80430 		strb	r3, [sp, #4]
+ 426 001a 1123     		movs	r3, #17
+ 427 001c 8DF80630 		strb	r3, [sp, #6]
+ 428 0020 0223     		movs	r3, #2
+ 429 0022 8DF80830 		strb	r3, [sp, #8]
+ 430 0026 7E23     		movs	r3, #126
+ 431 0028 8DF80C30 		strb	r3, [sp, #12]
+ 432 002c 0B0A     		lsrs	r3, r1, #8
+ 433 002e 8DF80930 		strb	r3, [sp, #9]
+ 434 0032 8DF80A10 		strb	r1, [sp, #10]
+  68:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 435              		.loc 1 68 0
+ 436 0036 0922     		movs	r2, #9
+ 437 0038 01A9     		add	r1, sp, #4
+ 438              	.LVL35:
+ 439 003a FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 440              	.LVL36:
+  69:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 441              		.loc 1 69 0
+ 442 003e 0922     		movs	r2, #9
+ 443 0040 01A9     		add	r1, sp, #4
+ 444 0042 2046     		mov	r0, r4
+ 445 0044 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 446              	.LVL37:
+  70:Core/Src/RFID_low_level.cpp **** }
+ 447              		.loc 1 70 0
+ 448 0048 04B0     		add	sp, sp, #16
+ 449              	.LCFI18:
+ 450              		.cfi_def_cfa_offset 8
+ 451              		@ sp needed
+ 452 004a 10BD     		pop	{r4, pc}
+ 453              	.LVL38:
+ 454              	.L30:
+ 455              		.align	2
+ 456              	.L29:
+ 457 004c 1F85EB51 		.word	1374389535
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 10
+
+
+ 458              		.cfi_endproc
+ 459              	.LFE76:
+ 460              		.fnend
+ 462              		.section	.text._ZN12RFIDCommands17get_transmitpowerEv,"ax",%progbits
+ 463              		.align	2
+ 464              		.global	_ZN12RFIDCommands17get_transmitpowerEv
+ 465              		.thumb
+ 466              		.thumb_func
+ 468              	_ZN12RFIDCommands17get_transmitpowerEv:
+ 469              		.fnstart
+ 470              	.LFB77:
+  71:Core/Src/RFID_low_level.cpp **** 
+  72:Core/Src/RFID_low_level.cpp **** void RFIDCommands::get_transmitpower()
+  73:Core/Src/RFID_low_level.cpp **** {
+ 471              		.loc 1 73 0
+ 472              		.cfi_startproc
+ 473              		@ args = 0, pretend = 0, frame = 8
+ 474              		@ frame_needed = 0, uses_anonymous_args = 0
+ 475              	.LVL39:
+ 476 0000 10B5     		push	{r4, lr}
+ 477              		.save {r4, lr}
+ 478              	.LCFI19:
+ 479              		.cfi_def_cfa_offset 8
+ 480              		.cfi_offset 4, -8
+ 481              		.cfi_offset 14, -4
+ 482              		.pad #8
+ 483 0002 82B0     		sub	sp, sp, #8
+ 484              	.LCFI20:
+ 485              		.cfi_def_cfa_offset 16
+ 486 0004 0446     		mov	r4, r0
+  74:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_TRANSMIT_POWER_COMMAND, RFI
+  75:Core/Src/RFID_low_level.cpp ****     RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+ 487              		.loc 1 75 0
+ 488 0006 0B4B     		ldr	r3, .L33
+ 489 0008 53F8180F 		ldr	r0, [r3, #24]!	@ unaligned
+ 490              	.LVL40:
+ 491 000c 0090     		str	r0, [sp]	@ unaligned
+ 492 000e 9A88     		ldrh	r2, [r3, #4]	@ unaligned
+ 493 0010 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 494 0012 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 495 0016 8DF80630 		strb	r3, [sp, #6]
+  76:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 496              		.loc 1 76 0
+ 497 001a 0722     		movs	r2, #7
+ 498 001c 6946     		mov	r1, sp
+ 499 001e 2046     		mov	r0, r4
+ 500 0020 FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 501              	.LVL41:
+  77:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 502              		.loc 1 77 0
+ 503 0024 0722     		movs	r2, #7
+ 504 0026 6946     		mov	r1, sp
+ 505 0028 2046     		mov	r0, r4
+ 506 002a FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 507              	.LVL42:
+  78:Core/Src/RFID_low_level.cpp **** }
+ 508              		.loc 1 78 0
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 11
+
+
+ 509 002e 02B0     		add	sp, sp, #8
+ 510              	.LCFI21:
+ 511              		.cfi_def_cfa_offset 8
+ 512              		@ sp needed
+ 513 0030 10BD     		pop	{r4, pc}
+ 514              	.LVL43:
+ 515              	.L34:
+ 516 0032 00BF     		.align	2
+ 517              	.L33:
+ 518 0034 00000000 		.word	.LANCHOR0
+ 519              		.cfi_endproc
+ 520              	.LFE77:
+ 521              		.fnend
+ 523              		.section	.text._ZN12RFIDCommands17set_transmitpowerEt,"ax",%progbits
+ 524              		.align	2
+ 525              		.global	_ZN12RFIDCommands17set_transmitpowerEt
+ 526              		.thumb
+ 527              		.thumb_func
+ 529              	_ZN12RFIDCommands17set_transmitpowerEt:
+ 530              		.fnstart
+ 531              	.LFB78:
+  79:Core/Src/RFID_low_level.cpp **** 
+  80:Core/Src/RFID_low_level.cpp **** void RFIDCommands::set_transmitpower(uint16_t powerdbm)
+  81:Core/Src/RFID_low_level.cpp **** {
+ 532              		.loc 1 81 0
+ 533              		.cfi_startproc
+ 534              		@ args = 0, pretend = 0, frame = 16
+ 535              		@ frame_needed = 0, uses_anonymous_args = 0
+ 536              	.LVL44:
+ 537 0000 10B5     		push	{r4, lr}
+ 538              		.save {r4, lr}
+ 539              	.LCFI22:
+ 540              		.cfi_def_cfa_offset 8
+ 541              		.cfi_offset 4, -8
+ 542              		.cfi_offset 14, -4
+ 543              		.pad #16
+ 544 0002 84B0     		sub	sp, sp, #16
+ 545              	.LCFI23:
+ 546              		.cfi_def_cfa_offset 24
+ 547 0004 0446     		mov	r4, r0
+  82:Core/Src/RFID_low_level.cpp ****     uint16_t powerValue = powerdbm * 100;
+ 548              		.loc 1 82 0
+ 549 0006 01EB8101 		add	r1, r1, r1, lsl #2
+ 550              	.LVL45:
+ 551 000a 01EB8101 		add	r1, r1, r1, lsl #2
+ 552 000e 8900     		lsls	r1, r1, #2
+ 553 0010 89B2     		uxth	r1, r1
+ 554              	.LVL46:
+  83:Core/Src/RFID_low_level.cpp ****     uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_TRANSMIT_POWER_COMMAND, RFI
+  84:Core/Src/RFID_low_level.cpp ****     uint8_t((powerValue >> 8) & 0xFF), uint8_t(powerValue & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_
+ 555              		.loc 1 84 0
+ 556 0012 0023     		movs	r3, #0
+ 557 0014 0193     		str	r3, [sp, #4]
+ 558 0016 0293     		str	r3, [sp, #8]
+ 559 0018 BB23     		movs	r3, #187
+ 560 001a 8DF80430 		strb	r3, [sp, #4]
+ 561 001e B623     		movs	r3, #182
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 12
+
+
+ 562 0020 8DF80630 		strb	r3, [sp, #6]
+ 563 0024 0123     		movs	r3, #1
+ 564 0026 8DF80830 		strb	r3, [sp, #8]
+ 565 002a 7E23     		movs	r3, #126
+ 566 002c 8DF80C30 		strb	r3, [sp, #12]
+ 567 0030 0B0A     		lsrs	r3, r1, #8
+ 568 0032 8DF80930 		strb	r3, [sp, #9]
+ 569 0036 8DF80A10 		strb	r1, [sp, #10]
+  85:Core/Src/RFID_low_level.cpp ****     checksum(data, sizeof(data));
+ 570              		.loc 1 85 0
+ 571 003a 0922     		movs	r2, #9
+ 572 003c 01A9     		add	r1, sp, #4
+ 573              	.LVL47:
+ 574 003e FFF7FEFF 		bl	_ZN12RFIDCommands8checksumEPhj
+ 575              	.LVL48:
+  86:Core/Src/RFID_low_level.cpp ****     txpacket(data, sizeof(data));
+ 576              		.loc 1 86 0
+ 577 0042 0922     		movs	r2, #9
+ 578 0044 01A9     		add	r1, sp, #4
+ 579 0046 2046     		mov	r0, r4
+ 580 0048 FFF7FEFF 		bl	_ZN12RFIDCommands8txpacketEPKhj
+ 581              	.LVL49:
+  87:Core/Src/RFID_low_level.cpp **** }
+ 582              		.loc 1 87 0
+ 583 004c 04B0     		add	sp, sp, #16
+ 584              	.LCFI24:
+ 585              		.cfi_def_cfa_offset 8
+ 586              		@ sp needed
+ 587 004e 10BD     		pop	{r4, pc}
+ 588              		.cfi_endproc
+ 589              	.LFE78:
+ 590              		.fnend
+ 592              		.section	.rodata
+ 593              		.align	2
+ 594              		.set	.LANCHOR0,. + 0
+ 595              	.LC0:
+ 596 0000 BB       		.byte	-69
+ 597 0001 00       		.byte	0
+ 598 0002 03       		.byte	3
+ 599 0003 00       		.byte	0
+ 600 0004 01       		.byte	1
+ 601 0005 00       		.byte	0
+ 602 0006 00       		.byte	0
+ 603 0007 7E       		.byte	126
+ 604              	.LC1:
+ 605 0008 BB       		.byte	-69
+ 606 0009 00       		.byte	0
+ 607 000a 22       		.byte	34
+ 608 000b 00       		.byte	0
+ 609 000c 00       		.byte	0
+ 610 000d 00       		.byte	0
+ 611 000e 7E       		.byte	126
+ 612 000f 00       		.space	1
+ 613              	.LC2:
+ 614 0010 BB       		.byte	-69
+ 615 0011 00       		.byte	0
+ 616 0012 28       		.byte	40
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 13
+
+
+ 617 0013 00       		.byte	0
+ 618 0014 00       		.byte	0
+ 619 0015 00       		.byte	0
+ 620 0016 7E       		.byte	126
+ 621 0017 00       		.space	1
+ 622              	.LC3:
+ 623 0018 BB       		.byte	-69
+ 624 0019 00       		.byte	0
+ 625 001a B7       		.byte	-73
+ 626 001b 00       		.byte	0
+ 627 001c 00       		.byte	0
+ 628 001d 00       		.byte	0
+ 629 001e 7E       		.byte	126
+ 630              		.text
+ 631              	.Letext0:
+ 632              		.file 2 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 633              		.file 3 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 634              		.file 4 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\c++\\5.4.1
+ 635              		.file 5 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_
+ 636              		.file 6 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdi
+ 637              		.file 7 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdint.h"
+ 638              		.file 8 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\in
+ 639              		.file 9 "d:\\gnu tools for arm embedded processors\\5.4 2016q3\\arm-none-eabi\\include\\stdlib.h"
+ 640              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 641              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 642              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 643              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 644              		.file 14 "Core/Inc/RFID_low_level.h"
+ 645              		.file 15 "Drivers/CMSIS/Include/core_cm3.h"
+ 646              		.file 16 "Core/Inc/usart.h"
+ 647              		.file 17 "<built-in>"
+ARM GAS  C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 RFID_low_level.cpp
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:20     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:25     .text._ZN12RFIDCommands8txpacketEPKhj:00000000 _ZN12RFIDCommands8txpacketEPKhj
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:51     .text._ZN12RFIDCommands8txpacketEPKhj:0000000c $d
+.ARM.extab.text._ZN12RFIDCommands8txpacketEPKhj:00000000 $d
+.ARM.exidx.text._ZN12RFIDCommands8txpacketEPKhj:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:57     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:62     .text._ZN12RFIDCommands8rxpacketEPhh:00000000 _ZN12RFIDCommands8rxpacketEPhh
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:85     .text._ZN12RFIDCommands8rxpacketEPhh:0000000c $d
+.ARM.extab.text._ZN12RFIDCommands8rxpacketEPhh:00000000 $d
+.ARM.exidx.text._ZN12RFIDCommands8rxpacketEPhh:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:91     .text._ZN12RFIDCommands8checksumEPhj:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:96     .text._ZN12RFIDCommands8checksumEPhj:00000000 _ZN12RFIDCommands8checksumEPhj
+.ARM.exidx.text._ZN12RFIDCommands8checksumEPhj:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:145    .text._ZN12RFIDCommands15get_module_infoEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:150    .text._ZN12RFIDCommands15get_module_infoEv:00000000 _ZN12RFIDCommands15get_module_infoEv
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:198    .text._ZN12RFIDCommands15get_module_infoEv:00000028 $d
+.ARM.exidx.text._ZN12RFIDCommands15get_module_infoEv:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:204    .text._ZN12RFIDCommands14single_pollingEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:209    .text._ZN12RFIDCommands14single_pollingEv:00000000 _ZN12RFIDCommands14single_pollingEv
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:259    .text._ZN12RFIDCommands14single_pollingEv:00000034 $d
+.ARM.exidx.text._ZN12RFIDCommands14single_pollingEv:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:265    .text._ZN12RFIDCommands13multi_pollingEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:270    .text._ZN12RFIDCommands13multi_pollingEt:00000000 _ZN12RFIDCommands13multi_pollingEt
+.ARM.exidx.text._ZN12RFIDCommands13multi_pollingEt:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:329    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:334    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 _ZN12RFIDCommands18stop_multi_pollingEv
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:384    .text._ZN12RFIDCommands18stop_multi_pollingEv:00000034 $d
+.ARM.exidx.text._ZN12RFIDCommands18stop_multi_pollingEv:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:390    .text._ZN12RFIDCommands12set_baudrateEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:395    .text._ZN12RFIDCommands12set_baudrateEt:00000000 _ZN12RFIDCommands12set_baudrateEt
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:457    .text._ZN12RFIDCommands12set_baudrateEt:0000004c $d
+.ARM.exidx.text._ZN12RFIDCommands12set_baudrateEt:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:463    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:468    .text._ZN12RFIDCommands17get_transmitpowerEv:00000000 _ZN12RFIDCommands17get_transmitpowerEv
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:518    .text._ZN12RFIDCommands17get_transmitpowerEv:00000034 $d
+.ARM.exidx.text._ZN12RFIDCommands17get_transmitpowerEv:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:524    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 $t
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:529    .text._ZN12RFIDCommands17set_transmitpowerEt:00000000 _ZN12RFIDCommands17set_transmitpowerEt
+.ARM.exidx.text._ZN12RFIDCommands17set_transmitpowerEt:00000000 $d
+C:\Users\大毛\AppData\Local\Temp\ccAnBl1N.s:593    .rodata:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit_IT
+huart1
+__aeabi_unwind_cpp_pr1
+HAL_UART_Receive_IT
+__aeabi_unwind_cpp_pr0
