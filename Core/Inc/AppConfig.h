@@ -9,6 +9,8 @@
 //RFID Config
 #define FIRST_RFID_UART huart1
 #define SECOND_RFID_UART huart2
+#define RFID_PACKET_BUFFER_SIZE 30
+#define RFID_RX_SECOND_RECEIVED_BYTES 4 //The number of bytes that is going to be received from RFID module through rx pin for the second time
 
 //RFID Firmware Command
 //For detail about how to combine these bytes please refer to M100/QM100 firmware Cmmand Instructions
@@ -28,6 +30,7 @@
 
 #define RFID_MULTI_POLLING_COMMAND 0x27
 #define RFID_MULTI_POLLING_RESERVED_BYTE 0x22
+#define RFID_RECEIVE_ERROR_COMMAND 0XFF
 
 #define RFID_STOP_MULTI_POLLING_COMMAND 0x28
 

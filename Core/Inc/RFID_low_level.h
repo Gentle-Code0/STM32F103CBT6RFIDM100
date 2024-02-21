@@ -12,6 +12,8 @@
 class RFIDCommands
 {
 public:
+    RFIDCommands();
+
     void txpacket(const uint8_t bytes[], size_t size);
     void rxpacket(uint8_t bytes[], uint8_t size);
     
@@ -24,51 +26,35 @@ public:
     void set_transmitpower(uint16_t powerdbm);
     void set_sleep_mode();
     void set_auto_sleep_time(uint8_t time);
-    void enter_IDLEmode(uint8_t time);
-
-    void checksum(uint8_t bytes[], size_t size);
-
-    
+    void enter_IDLEmode(uint8_t time);  
 };
 
-/**
- * Errors for parsing RFID.
- */
-enum class RFIDParseError
-{
-    OK,                // Yep, it's an RFID packet.
-    InsufficientData,  // More bytes are needed to determine if this is a packet or not.
-    NotAPacket,        // This is definitely NOT a packet.
-    ErrorPacket,       // This is a packet, but it indicates an error / nothing / null from the sensor.
-    OtherPacket,       // This is a packet, but not an RFID tag packet.
-    IncorrectChecksum, // This looks like a packet, but the checksum is wrong.
-    // IncorrectCRC,
+namespace RFIDGlobalVariables{
+    bool startByteFlag = 0;
+    bool receiveCompleteFlag = 0;
+    uint16_t packetLossTime = 0;
+    uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
+    uint8_t currentSize = 0;
+}
+
+enum RFIDErrorTypes{
+    NoError,
+    NotaPacket,
+    ChecksumWrong,
+    CommandError,
+    PollingFail,
+    OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
-/**
- * A struct containing all the fields of an RFID packet
- */
-struct RFIDData
-{
-    uint8_t rssi;    // Received Signal Strength Indicator.
-    uint16_t pc;     // A length value used to intercept EPC
-    uint8_t epc[12]; // Electronic Product Code.
-    uint8_t len;     // Length of epc.
+namespace RFIDFunctions{
+    void startFirstByteReceive();
+    void receivedByteJudge();
+    void resetGlobalVariables();
+    void checksum(uint8_t bytes[], size_t size); 
+    uint8_t errorJudge(const uint8_t data[], uint8_t size);
+    void dataProcessing(const uint8_t data[], uint8_t size);
+    uint16_t getPacketLossTime();
+}
 
-    RFIDParseError parseFrom(const uint8_t buffer[], size_t size);
-    void print() const;
-
-    friend bool operator==(const RFIDData& lhs, const RFIDData& rhs)
-    {
-        if (!(/* lhs.rssi == rhs.rssi &&  */ lhs.pc == rhs.pc && lhs.len == rhs.len))
-            return false;
-
-        for (uint8_t i = 0; i < lhs.len; i++)
-            if (lhs.epc[i] != rhs.epc[i])
-                return false;
-
-        return true;
-    }
-};
 
 #endif
