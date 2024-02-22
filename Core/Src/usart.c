@@ -118,5 +118,29 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/*static void Autobaudrate(void)
+{
+  float tmp=0, elapsed;
+  uint32_t USART1_clk=0;
+  uint32_t start_time_val=0;
+  uint32_t stop_time_val = 0;
+  uint32_t BRR=0;
+  tmp += 0xFFFFFF - stop_time_val;
+  tmp -= start_time_val;
+  elapsed =(tmp/(SystemCoreClock/1000000))/8;
+  USART1_clk=SystemCoreClock;
+  if( (USART1->CR1 & 0x8000)== 0x8000)
+  {*/
+    /*In case of oversampling by 8*/
+//    BRR =(elapsed*((2*USART1_clk)/1000000))+1;
+//    USART1->BRR= BRR;
+//  }
+//  else
+//  {
+    /*In case of oversampling by 16*/
+//    BRR =(elapsed* ((USART1_clk)/1000000))+1;
+//    USART1->BRR=BRR;
+//  }
+//}
 
 /* USER CODE END 1 */

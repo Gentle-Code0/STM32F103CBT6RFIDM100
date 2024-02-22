@@ -207,6 +207,7 @@ void RFIDFunctions::resetGlobalVariables()
     }
 }
 
+//This function should not be frequently used
 void RFIDFunctions::startFirstByteReceive()
 {
     HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer, sizeof(uint8_t));
@@ -275,7 +276,7 @@ uint8_t RFIDFunctions::errorJudge(const uint8_t data[], uint8_t size) //TO DO: b
     return errorType;
 }
 
-void RFIDFunctions::dataProcessing(const uint8_t data[], uint8_t size)
+void RFIDFunctions::dataProcessing(const uint8_t data[], uint8_t size) //TO DO: Decide where data will eventually go to, storage or print or analysis.
 {
     if(data[1] == 0x02) //A response frame, the most common
     {

@@ -5,6 +5,11 @@
 #define HEX 16
 #define BAUD_RATE 115200 //Remember to change it if baud rate is changed in STM32CubeMX!
 
+//System define
+#define SysTick_Counter_Disable ((uint32_t)0xFFFFFFFE)
+#define SysTick_Counter_Enable ((uint32_t)0x00000001)
+#define SysTick_Counter_Clear ((uint32_t)0x00000000)
+#define GETMYTIME(_t) (*_t=SysTick->VAL)
 
 //RFID Config
 #define FIRST_RFID_UART huart1
