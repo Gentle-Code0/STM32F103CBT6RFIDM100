@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_it.h"
+#include "usart.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -234,7 +235,17 @@ void DMA1_Channel5_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  uint32_t tmpFlag = 0;
+  uint32_t temp;
+  tmpFlag = __HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE); //Get IDLE flag bit 
+  if(tmpFlag != RESET)
+  {
+    __HAL_UART_CLEAR_IDLEFLAG(&huart1); //Clear IDLE flag so that IDLE interrupt can be triggered again.
+    HAL_UART_DMAStop(&huart1);
+    temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
+    rxLength = rxBufferSize - temp;
+    receiveEndFlag = 1;
+  }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
