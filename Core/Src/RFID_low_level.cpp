@@ -3,7 +3,8 @@
 
 void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
 {
-    HAL_UART_Transmit_IT(&FIRST_RFID_UART, bytes, size);
+    HAL_UART_Transmit_DMA(&FIRST_RFID_UART, bytes, size);  //Transmit using DMA
+    //HAL_UART_Transmit_IT(&FIRST_RFID_UART, bytes, size);
     //HAL_UART_Transmit_IT(&SECOND_RFID_UART, &byte, size);
     //If second RFID module is applied,
     //one can add another line of transmit code for that second RFID module like above    
