@@ -56,16 +56,21 @@ extern "C" {
 
 /**
  * TX Commands to interface with the M100.
+ * and data processing function used when rx receives frame
  */
 class RFIDCommands
 {
 public:
-    UART_HandleTypeDef uartNumber;
+    
 public:
-    RFIDCommands();
+    //Forbid default constructor
+    //This class must have a valid UART_HandleTypeDef address
+    RFIDCommands() = delete; 
+    RFIDCommands(UART_HandleTypeDef huart):
+    uartNumber(&huart){}
 
     void txpacket(const uint8_t bytes[], size_t size);
-    void rxpacket(uint8_t bytes[], uint8_t size);
+    //void rxpacket(uint8_t bytes[], uint8_t size);
     
     void get_module_info();
     void single_polling();
@@ -76,16 +81,22 @@ public:
     void set_transmitpower(uint16_t powerdbm);
     void set_sleep_mode();
     void set_auto_sleep_time(uint8_t time);
-    void enter_IDLEmode(uint8_t time);  
-};
+    void enter_IDLEmode(uint8_t time);
 
-namespace RFIDGlobalVariables{
-    bool startByteFlag = 0;
-    bool receiveCompleteFlag = 0;
+    //Functions related rx
+    void resetGlobalVariables();
+    void checksum(uint8_t bytes[], size_t size); 
+    uint8_t errorJudge(const uint8_t data[], uint8_t size);
+    uint16_t getPacketLossTime();
+    void receivedDataProcessing();
+private:
+    //Variables should not change after construction
+    UART_HandleTypeDef* uartNumber;
+
+    //Variables will change
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
-    uint8_t currentSize = 0;
-}
+};
 
 enum RFIDErrorTypes{
     NoError,
@@ -97,11 +108,7 @@ enum RFIDErrorTypes{
 };
 
 namespace RFIDFunctions{
-    void resetGlobalVariables();
-    void checksum(uint8_t bytes[], size_t size); 
-    uint8_t errorJudge(const uint8_t data[], uint8_t size);
-    uint16_t getPacketLossTime();
-    void receivedDataProcessing();
+
 }
 #ifdef __cplusplus
 }  // Match extern "C"
