@@ -21,9 +21,9 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-volatile uint8_t receivedDataLength = 0;
+volatile uint8_t rxLength = 0;
 volatile uint8_t receiveEndFlag = 0;
-uint8_t rxBuffer[rxBufferSize];
+uint8_t rxBuffer[RXBUFFER_SIZE];
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -56,7 +56,7 @@ void MX_USART1_UART_Init(void)
   }
   /* USER CODE BEGIN USART1_Init 2 */
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, rxBuffer, rxBufferSize);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, rxBuffer, RXBUFFER_SIZE);
   /* USER CODE END USART1_Init 2 */
 
 }
