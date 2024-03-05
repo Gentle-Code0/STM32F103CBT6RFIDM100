@@ -1,8 +1,12 @@
 #ifndef RFID_LOW_LEVEL_H
 #define RFID_LOW_LEVEL_H
 
+#ifdef __cplusplus
+// Building with a C++ compiler
+extern "C" {
+#endif
+
 #include <cstdint>
-#include <cstdlib>
 #include "AppConfig.h"
 #include "usart.h"
 
@@ -56,6 +60,8 @@
 class RFIDCommands
 {
 public:
+    UART_HandleTypeDef uartNumber;
+public:
     RFIDCommands();
 
     void txpacket(const uint8_t bytes[], size_t size);
@@ -97,6 +103,9 @@ namespace RFIDFunctions{
     uint16_t getPacketLossTime();
     void receivedDataProcessing();
 }
+#ifdef __cplusplus
+}  // Match extern "C"
+#endif
 
 
 #endif

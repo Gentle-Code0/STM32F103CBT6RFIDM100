@@ -4,11 +4,8 @@
 
 void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
 {
-    HAL_UART_Transmit_DMA(&FIRST_RFID_UART, bytes, size);  //Transmit using DMA
-    //HAL_UART_Transmit_IT(&FIRST_RFID_UART, bytes, size);
-    //HAL_UART_Transmit_IT(&SECOND_RFID_UART, &byte, size);
-    //If second RFID module is applied,
-    //one can add another line of transmit code for that second RFID module like above    
+    HAL_UART_Transmit_DMA(&uartNumber, bytes, size);  //Transmit using DMA
+    //HAL_UART_Transmit_IT(&uartNumber, bytes, size);  
 }
 
 void RFIDCommands::get_module_info()
@@ -190,54 +187,51 @@ uint16_t RFIDFunctions::getPacketLossTime()
 }
 
 //Using global veriables rxBuffer, reveivedDataLength, receiveEndFlag
+//Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDFunctions::receivedDataProcessing()
 {
-    if(receiveEndFlag == 1)
+    if(RFIDFunctions::errorJudge(rxBuffer, receivedDataLength) == 0)
     {
-        if(RFIDFunctions::errorJudge(rxBuffer, receivedDataLength) == 0)
+        if(rxBuffer[1] == 0x02) //A response frame, the most common
         {
-            if(rxBuffer[1] == 0x02) //A response frame, the most common
-            {
-                switch(rxBuffer[2]){
-                    case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
+            switch(rxBuffer[2]){
+                case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
 
-                        break;
-                    case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
+                    break;
+                case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
 
-                        break;
-                    case RFID_GET_TRANSMIT_POWER_COMMAND: //A response for getting transmitting power command
+                    break;
+                case RFID_GET_TRANSMIT_POWER_COMMAND: //A response for getting transmitting power command
 
-                        break;
-                    case RFID_SET_TRANSMIT_POWER_COMMAND: //A response for setting transmitting power command
+                    break;
+                case RFID_SET_TRANSMIT_POWER_COMMAND: //A response for setting transmitting power command
 
-                        break;
-                    case RFID_SET_SLEEP_MODE_COMMAND: //A response for setting sleep mode command
+                    break;
+                case RFID_SET_SLEEP_MODE_COMMAND: //A response for setting sleep mode command
 
-                        break;
-                    case RFID_SET_ATUO_SLEEP_TIME_COMMAND: //A response for setting time that module waits before automatically going into sleep mode command
+                    break;
+                case RFID_SET_ATUO_SLEEP_TIME_COMMAND: //A response for setting time that module waits before automatically going into sleep mode command
 
-                        break;
-                    case RFID_SET_IDLE_COMMAND: //A response for setting IDLE mode configuration command
+                    break;
+                case RFID_SET_IDLE_COMMAND: //A response for setting IDLE mode configuration command
 
-                        break;
-                }
-            } 
-            else if(rxBuffer[1] == 0x01) //A notify frame
-            {
-                switch(rxBuffer[2]){
-                    case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
-
-                        break;
-                    case RFID_MULTI_POLLING_COMMAND: //A notification for multiple polling command
-
-                        break;
-                }
-
+                    break;
             }
-        }
+        } 
+        else if(rxBuffer[1] == 0x01) //A notify frame
+        {
+            switch(rxBuffer[2]){
+                case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
 
-        resetGlobalVariables();
-        receiveEndFlag = 0;
-        HAL_UARTEx_ReceiveToIdle_DMA(&FIRST_RFID_UART, rxBuffer, RXBUFFER_SIZE);
+                    break;
+                case RFID_MULTI_POLLING_COMMAND: //A notification for multiple polling command
+
+                    break;
+            }
+
+        }
     }
+
+    resetGlobalVariables();
+    receiveEndFlag = 0;
 }
