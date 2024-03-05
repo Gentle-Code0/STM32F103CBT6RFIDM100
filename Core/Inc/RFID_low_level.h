@@ -91,13 +91,11 @@ enum RFIDErrorTypes{
 };
 
 namespace RFIDFunctions{
-    void startFirstByteReceive();
-    void receivedByteJudge();
     void resetGlobalVariables();
     void checksum(uint8_t bytes[], size_t size); 
     uint8_t errorJudge(const uint8_t data[], uint8_t size);
-    void dataProcessing(const uint8_t data[], uint8_t size);
     uint16_t getPacketLossTime();
+    void RFIDFunctions::receivedDataProcessing();
 }
 
 

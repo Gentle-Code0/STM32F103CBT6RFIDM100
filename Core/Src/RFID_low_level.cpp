@@ -1,4 +1,5 @@
 #include "RFID_low_level.h"
+#include "usart.h"
 
 
 void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
@@ -96,94 +97,6 @@ void RFIDCommands::enter_IDLEmode(uint8_t time)
     txpacket(data, sizeof(data));
 }
 
-void RFIDFunctions::receivedByteJudge()
-{
-    using namespace RFIDGlobalVariables;
-    if(receivedDataBuffer[0] == RFID_START_BYTE && startByteFlag == 0 && currentSize == 0)
-    {
-        startByteFlag = 1;
-        currentSize += 1;
-        HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, RFID_RX_SECOND_RECEIVED_BYTES);
-    } 
-    else if(startByteFlag == 1 && currentSize == 1)
-    {
-        currentSize += 4;
-
-        //Case by Packet Length parameter
-        //According to user mnual, 
-        //first byte of Packet Length is never used, 
-        //so we only consider second byte
-        switch (receivedDataBuffer[4]){
-            case 0x00:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 2); //Receive checksum byte and END byte
-                break;
-            case 0x01:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 1+2); //Receive data bytes and checksum byte and END byte
-                break;
-            case 0x02:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 2+2);
-                break;
-            case 0x03:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 3+2);
-                break;
-            case 0x0B:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 0x0B+2);
-                break;
-            case 0x11:
-                HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer + currentSize, 0x11+2);
-                break;
-            default:
-                resetGlobalVariables(); //not receiving the expected packet
-                RFIDFunctions::startFirstByteReceive();
-        }
-    }
-    else if(startByteFlag == 1 && currentSize == 5) //Receive is completed
-    {
-        //Case by Packet Length parameter
-        //According to user mnual, 
-        //first byte of Packet Length is never used, 
-        //so we only consider second byte
-        switch (receivedDataBuffer[4]){
-            case 0x00:
-                currentSize += 2;
-                receiveCompleteFlag = 1;      
-                break;
-            case 0x01:
-                currentSize += 3;
-                receiveCompleteFlag = 1; 
-                break;
-            case 0x02:
-                currentSize += 4;
-                receiveCompleteFlag = 1;
-                break;
-            case 0x03:
-                currentSize += 5;
-                receiveCompleteFlag = 1;
-                break;
-            case 0x0B:
-                currentSize += 0x0D;
-                receiveCompleteFlag = 1;
-                break;
-            case 0x11:
-                currentSize += 0x13;
-                receiveCompleteFlag = 1;
-                break;
-            default:
-                resetGlobalVariables(); //not receiving the expected packet
-                RFIDFunctions::startFirstByteReceive();
-            }
-    }
-    else if(startByteFlag == 1 && receiveCompleteFlag == 1)
-    {
-        //A complete packet has already been received, so do nothing here
-    }
-    else 
-    {
-        resetGlobalVariables();
-        RFIDFunctions::startFirstByteReceive();
-    }
-}
-
 /*The Checksum is the sum from the Frame Type byte to the last Instruction Parameter byte,
 and takes only the sum's lowest byte (LSB). Checksum is used to verify if the transmit is correct.
 !!Also please notice that checksum function has already ignored the first byte but not the last 2 bytes of the packet!!*/
@@ -208,12 +121,6 @@ void RFIDFunctions::resetGlobalVariables()
     }
 }
 
-//This function should not be frequently used
-void RFIDFunctions::startFirstByteReceive()
-{
-    HAL_UART_Receive_IT(&FIRST_RFID_UART, RFIDGlobalVariables::receivedDataBuffer, sizeof(uint8_t));
-}
-
 uint8_t RFIDFunctions::errorJudge(const uint8_t data[], uint8_t size) //TO DO: broadcast error information to serial port
 {
     using namespace RFIDGlobalVariables;
@@ -221,7 +128,7 @@ uint8_t RFIDFunctions::errorJudge(const uint8_t data[], uint8_t size) //TO DO: b
     uint8_t errorType = 0;
     uint8_t checksumValue = data[size -2];
 
-    if(data[size - 1] == RFID_END_BYTE)
+    if(data[0] == RFID_START_BYTE && data[size - 1] == RFID_END_BYTE && size <RXBUFFER_SIZE)
     {
         for (size_t i = 1; i < size - 2; i++)
             checksumValue -= data[i];
@@ -277,66 +184,60 @@ uint8_t RFIDFunctions::errorJudge(const uint8_t data[], uint8_t size) //TO DO: b
     return errorType;
 }
 
-void RFIDFunctions::dataProcessing(const uint8_t data[], uint8_t size) //TO DO: Decide where data will eventually go to, storage or print or analysis.
-{
-    if(data[1] == 0x02) //A response frame, the most common
-    {
-        switch(data[2]){
-            case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
-
-                break;
-            case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
-
-                break;
-            case RFID_GET_TRANSMIT_POWER_COMMAND: //A response for getting transmitting power command
-
-                break;
-            case RFID_SET_TRANSMIT_POWER_COMMAND: //A response for setting transmitting power command
-
-                break;
-            case RFID_SET_SLEEP_MODE_COMMAND: //A response for setting sleep mode command
-
-                break;
-            case RFID_SET_ATUO_SLEEP_TIME_COMMAND: //A response for setting time that module waits before automatically going into sleep mode command
-
-                break;
-            case RFID_SET_IDLE_COMMAND: //A response for setting IDLE mode configuration command
-
-                break;
-        }
-    } 
-    else if(data[1] == 0x01) //A notify frame
-    {
-        switch(data[2]){
-            case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
-
-                break;
-            case RFID_MULTI_POLLING_COMMAND: //A notification for multiple polling command
-
-                break;
-        }
-    } else {
-        //It is not a notify frame nor a response frame
-        resetGlobalVariables();
-        RFIDFunctions::startFirstByteReceive();
-    }
-}
-
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-    RFIDFunctions::receivedByteJudge();
-    //a final process function
-    if(RFIDGlobalVariables::receiveCompleteFlag == 1)
-    {
-        if(RFIDFunctions::errorJudge(RFIDGlobalVariables::receivedDataBuffer, RFIDGlobalVariables::currentSize) == 0)
-        {
-            RFIDFunctions::dataProcessing(RFIDGlobalVariables::receivedDataBuffer, RFIDGlobalVariables::currentSize);
-        }
-    }
-}
-
 uint16_t RFIDFunctions::getPacketLossTime()
 {
     return RFIDGlobalVariables::packetLossTime;
+}
+
+//Using global veriables rxBuffer, reveivedDataLength, receiveEndFlag
+void RFIDFunctions::receivedDataProcessing()
+{
+    if(receiveEndFlag == 1)
+    {
+        if(RFIDFunctions::errorJudge(rxBuffer, receivedDataLength) == 0)
+        {
+            if(rxBuffer[1] == 0x02) //A response frame, the most common
+            {
+                switch(rxBuffer[2]){
+                    case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
+
+                        break;
+                    case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
+
+                        break;
+                    case RFID_GET_TRANSMIT_POWER_COMMAND: //A response for getting transmitting power command
+
+                        break;
+                    case RFID_SET_TRANSMIT_POWER_COMMAND: //A response for setting transmitting power command
+
+                        break;
+                    case RFID_SET_SLEEP_MODE_COMMAND: //A response for setting sleep mode command
+
+                        break;
+                    case RFID_SET_ATUO_SLEEP_TIME_COMMAND: //A response for setting time that module waits before automatically going into sleep mode command
+
+                        break;
+                    case RFID_SET_IDLE_COMMAND: //A response for setting IDLE mode configuration command
+
+                        break;
+                }
+            } 
+            else if(rxBuffer[1] == 0x01) //A notify frame
+            {
+                switch(rxBuffer[2]){
+                    case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
+
+                        break;
+                    case RFID_MULTI_POLLING_COMMAND: //A notification for multiple polling command
+
+                        break;
+                }
+
+            }
+        }
+
+        resetGlobalVariables();
+        receiveEndFlag = 0;
+        HAL_UARTEx_ReceiveToIdle_DMA(&FIRST_RFID_UART, rxBuffer, RXBUFFER_SIZE);
+    }
 }
