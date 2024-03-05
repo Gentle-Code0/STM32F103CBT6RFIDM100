@@ -95,7 +95,7 @@ namespace RFIDFunctions{
     void checksum(uint8_t bytes[], size_t size); 
     uint8_t errorJudge(const uint8_t data[], uint8_t size);
     uint16_t getPacketLossTime();
-    void RFIDFunctions::receivedDataProcessing();
+    void receivedDataProcessing();
 }
 
 

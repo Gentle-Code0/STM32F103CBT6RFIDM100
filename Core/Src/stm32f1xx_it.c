@@ -251,7 +251,7 @@ void USART1_IRQHandler(void)
     HAL_UART_DMAStop(&huart1);
     temp = __HAL_DMA_GET_COUNTER(huart1.hdmarx);
     //temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
-    receivedDataLength = RXBUFFER_SIZE - temp;
+    receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
     receiveEndFlag = 1;
   }
   /* USER CODE END USART1_IRQn 0 */

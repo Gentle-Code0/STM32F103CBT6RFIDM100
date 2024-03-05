@@ -130,7 +130,7 @@ uint8_t RFIDFunctions::errorJudge(const uint8_t data[], uint8_t size) //TO DO: b
 
     if(data[0] == RFID_START_BYTE && data[size - 1] == RFID_END_BYTE && size <RXBUFFER_SIZE)
     {
-        for (size_t i = 1; i < size - 2; i++)
+        for (uint8_t i = 1; i < size - 2; i++)
             checksumValue -= data[i];
         if(checksumValue == 0) //checksum matched
         {
