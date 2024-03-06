@@ -161,11 +161,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 /* USER CODE BEGIN 1 */
 //方便使用printf，以打印查看效果
-int fputc(int ch, FILE *f)
+/*int fputc(int ch, FILE *f)
 {
   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
   return ch;
-}
+}*/
 
 //Set new baudrate for uart after the initialization of uart peripheral
 //mostly used for RFID module
