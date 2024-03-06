@@ -91,6 +91,7 @@ private:
     //Variables will change
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
+    uint8_t bufferOccupiedLength = 0;
 
     void txpacket(const uint8_t bytes[], size_t size); //Sending packet through tx
     //void rxpacket(uint8_t bytes[], uint8_t size);

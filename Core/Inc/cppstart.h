@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-int cpp_start();
+void cpp_start();
 
 #ifdef __cplusplus
 }

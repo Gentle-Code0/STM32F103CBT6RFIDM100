@@ -60,9 +60,10 @@ Core/Src/dma.c
 
 # CPP sources
 CPP_SOURCES = \
-Core/Src/start.cpp \
+Core/Src/cppstart.cpp \
 Core/Src/RFID_low_level.cpp \
-Core/InterfaceSrc/RFID_low_level_interface.cpp
+Core/InterfaceSrc/RFID_low_level_interface.cpp \
+Core/Src/misc_func.cpp
 
 # ASM sources
 ASM_SOURCES =  \
