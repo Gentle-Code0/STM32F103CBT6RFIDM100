@@ -69,6 +69,7 @@ public:
     RFIDCommands(UART_HandleTypeDef huart):
     uartNumber(&huart){}
     
+    //Functions for sending message through tx
     void get_module_info();
     void single_polling();
     void multi_polling(uint16_t pollingTimes);
@@ -81,9 +82,6 @@ public:
     void enter_IDLEmode(uint8_t time);
 
     //Functions related rx
-    void resetGlobalVariables();
-    void checksum(uint8_t bytes[], size_t size); 
-    uint8_t errorJudge(const uint8_t data[], uint8_t size);
     uint16_t getPacketLossTime();
     void receivedDataProcessing();
 private:
@@ -94,8 +92,14 @@ private:
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
 
-    void txpacket(const uint8_t bytes[], size_t size);
+    void txpacket(const uint8_t bytes[], size_t size); //Sending packet through tx
     //void rxpacket(uint8_t bytes[], uint8_t size);
+
+    void checksum(uint8_t bytes[], size_t size); //checksum check for both rx and tx
+
+    //Functions related to rx received data processing
+    void resetGlobalVariables();
+    uint8_t errorJudge(const uint8_t data[], uint8_t size);
 };
 
 enum RFIDErrorTypes{
