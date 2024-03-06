@@ -11,7 +11,7 @@
 //RFID Config
 #define FIRST_RFID_UART huart1
 #define SECOND_RFID_UART huart2
-#define RFID_PACKET_BUFFER_SIZE 30
+#define RFID_PACKET_BUFFER_SIZE 50
 #define RFID_RX_SECOND_RECEIVED_BYTES 4 //The number of bytes that is going to be received from RFID module through rx pin for the second time
 
 #endif /*__APP_CONFIG_H__*/
