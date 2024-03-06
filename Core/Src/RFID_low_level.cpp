@@ -112,7 +112,9 @@ void RFIDCommands::resetGlobalVariables()
     }
 }
 
-uint8_t RFIDCommands::errorJudge(const uint8_t data[], uint8_t size) //TO DO: broadcast error information to serial port
+//Judges if there is an error and outputs error messasge
+//TO DO: broadcast error information to serial port
+uint8_t RFIDCommands::errorJudge(const uint8_t data[], uint8_t size) 
 {
     uint8_t errorType = 0;
     uint8_t checksumValue = data[size -2];
@@ -182,11 +184,13 @@ uint16_t RFIDCommands::getPacketLossTime()
 //Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDCommands::receivedDataProcessing()
 {
-    if(errorJudge(rxBuffer, receivedDataLength) == 0)
+    copy_array(rxBuffer, receivedDataBuffer, receivedDataLength);
+    bufferOccupiedLength = receivedDataLength;
+    if(errorJudge(receivedDataBuffer, bufferOccupiedLength) == 0)
     {
-        if(rxBuffer[1] == 0x02) //A response frame, the most common
+        if(receivedDataBuffer[1] == 0x02) //A response frame, the most common
         {
-            switch(rxBuffer[2]){
+            switch(receivedDataBuffer[2]){
                 case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
 
                     break;
@@ -210,9 +214,9 @@ void RFIDCommands::receivedDataProcessing()
                     break;
             }
         } 
-        else if(rxBuffer[1] == 0x01) //A notify frame
+        else if(receivedDataBuffer[1] == 0x01) //A notify frame
         {
-            switch(rxBuffer[2]){
+            switch(receivedDataBuffer[2]){
                 case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
 
                     break;
