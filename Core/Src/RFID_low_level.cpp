@@ -1,6 +1,4 @@
 #include "RFID_low_level.h"
-#include "usart.h"
-
 
 void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
 {

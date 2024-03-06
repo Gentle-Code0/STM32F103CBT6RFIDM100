@@ -68,9 +68,6 @@ public:
     RFIDCommands() = delete; 
     RFIDCommands(UART_HandleTypeDef huart):
     uartNumber(&huart){}
-
-    void txpacket(const uint8_t bytes[], size_t size);
-    //void rxpacket(uint8_t bytes[], uint8_t size);
     
     void get_module_info();
     void single_polling();
@@ -96,6 +93,9 @@ private:
     //Variables will change
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
+
+    void txpacket(const uint8_t bytes[], size_t size);
+    //void rxpacket(uint8_t bytes[], uint8_t size);
 };
 
 enum RFIDErrorTypes{

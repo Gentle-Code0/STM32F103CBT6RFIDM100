@@ -61,7 +61,8 @@ Core/Src/dma.c
 # CPP sources
 CPP_SOURCES = \
 Core/Src/start.cpp \
-Core/Src/RFID_low_level.cpp
+Core/Src/RFID_low_level.cpp \
+Core/InterfaceSrc/RFID_low_level_interface.cpp
 
 # ASM sources
 ASM_SOURCES =  \
@@ -127,7 +128,8 @@ C_INCLUDES =  \
 -IDrivers/STM32F1xx_HAL_Driver/Inc \
 -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
--IDrivers/CMSIS/Include
+-IDrivers/CMSIS/Include \
+-ICore/InterfaceInc 
 
 
 # compile gcc flags
