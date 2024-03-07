@@ -9,6 +9,7 @@ void cpp_start(){
     {
         RFID1.receivedDataProcessing();
         receiveEndFlag = 0;
+        HAL_UARTEx_ReceiveToIdle_DMA(&huart1, rxBuffer, RXBUFFER_SIZE); //restart the DMA receiving process
         print_to_USB(RFID1.return_databuffer_address());
     }
 }
