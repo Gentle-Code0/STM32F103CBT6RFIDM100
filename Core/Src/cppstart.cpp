@@ -2,8 +2,9 @@
 #include "RFID_low_level.h"
 #include "usart.h"
 
+RFIDCommands RFID1(huart1);
+
 void cpp_start(){
-    RFIDCommands RFID1(huart1);
     RFID1.get_module_info();
     if(receiveEndFlag == 1)
     {
