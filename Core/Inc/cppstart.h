@@ -5,6 +5,7 @@
 extern "C" {
 #endif
 
+void idle_init();
 void cpp_start();
 
 #ifdef __cplusplus
