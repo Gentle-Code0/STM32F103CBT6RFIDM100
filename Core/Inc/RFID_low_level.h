@@ -67,7 +67,7 @@ public:
     //Forbid default constructor
     //This class must have a valid UART_HandleTypeDef address
     RFIDCommands() = delete; 
-    RFIDCommands(UART_HandleTypeDef huart):
+    RFIDCommands(UART_HandleTypeDef& huart):
     uartNumber(&huart){}
     
     //Functions for sending message through tx
@@ -85,6 +85,9 @@ public:
     //Functions related rx
     uint16_t getPacketLossTime();
     void receivedDataProcessing();
+
+    //Functions related to private variables
+    const uint8_t* return_databuffer_address();
 private:
     //Variables should not change after construction
     UART_HandleTypeDef* uartNumber;
@@ -100,7 +103,7 @@ private:
     void checksum(uint8_t bytes[], size_t size); //checksum check for both rx and tx
 
     //Functions related to rx received data processing
-    void resetGlobalVariables();
+    void resetClassVariables();
     uint8_t errorJudge(const uint8_t data[], uint8_t size);
 };
 

@@ -104,8 +104,9 @@ void RFIDCommands::checksum(uint8_t bytes[], size_t size)
     bytes[size] = checksum;
 }
 
-void RFIDCommands::resetGlobalVariables()
+void RFIDCommands::resetClassVariables()
 {
+    bufferOccupiedLength = 0;
     for(uint8_t i = 0; i<30; i++)
     {
         receivedDataBuffer[i] = 0;
@@ -184,6 +185,7 @@ uint16_t RFIDCommands::getPacketLossTime()
 //Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDCommands::receivedDataProcessing()
 {
+    resetClassVariables();
     copy_array(rxBuffer, receivedDataBuffer, receivedDataLength);
     bufferOccupiedLength = receivedDataLength;
     if(errorJudge(receivedDataBuffer, bufferOccupiedLength) == 0)
@@ -224,9 +226,12 @@ void RFIDCommands::receivedDataProcessing()
 
                     break;
             }
-
         }
     }
+}
 
-    resetGlobalVariables();
+//return the address of this RFID module's databuffer
+const uint8_t* RFIDCommands::return_databuffer_address()
+{
+    return receivedDataBuffer;
 }
