@@ -87,7 +87,7 @@ public:
     void receivedDataProcessing();
 
     //Functions related to private variables
-    const uint8_t* return_databuffer_address();
+    uint8_t* return_databuffer_address();
 private:
     //Variables should not change after construction
     UART_HandleTypeDef* uartNumber;

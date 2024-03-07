@@ -231,7 +231,7 @@ void RFIDCommands::receivedDataProcessing()
 }
 
 //return the address of this RFID module's databuffer
-const uint8_t* RFIDCommands::return_databuffer_address()
+uint8_t* RFIDCommands::return_databuffer_address()
 {
     return receivedDataBuffer;
 }

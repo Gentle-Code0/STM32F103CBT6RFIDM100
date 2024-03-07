@@ -9,5 +9,6 @@ void cpp_start(){
     {
         RFID1.receivedDataProcessing();
         receiveEndFlag = 0;
+        print_to_USB(RFID1.return_databuffer_address());
     }
 }
