@@ -104,6 +104,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     cpp_start();
+    HAL_Delay(1000); //For Debug usage
   }
   /* USER CODE END 3 */
 }

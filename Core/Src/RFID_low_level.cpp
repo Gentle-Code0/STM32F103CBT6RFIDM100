@@ -229,5 +229,4 @@ void RFIDCommands::receivedDataProcessing()
     }
 
     resetGlobalVariables();
-    receiveEndFlag = 0;
 }
