@@ -9,6 +9,12 @@ extern "C" {
 #include "usbd_cdc_if.h"
 #include "cppstart.h"
 
+//DMA buffer size has to be large enough to store upcoming data before last receive is processed
+#define RXBUFFER_SIZE 100
+
+extern volatile uint8_t receivedDataLength;
+extern volatile uint8_t receiveEndFlag;
+extern uint8_t rxBuffer[RXBUFFER_SIZE];
 
 //Copy a source array to a destination array
 //TO DO: This function should output error message when length is larger than any of these arrays.

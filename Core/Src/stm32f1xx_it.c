@@ -22,7 +22,7 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "usart.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -250,25 +250,7 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-  uint32_t tmpFlag = 0;
-  uint32_t temp;
-  tmpFlag = __HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE); //Get IDLE flag bit 
-  if(tmpFlag != RESET)
-  {
-    __HAL_UART_CLEAR_IDLEFLAG(&huart1); //Clear IDLE flag so that IDLE interrupt can be triggered again.
-    temp = huart1.Instance->DR; //This and following registers will be cleared on read
-    temp = huart1.Instance->SR;
 
-    //when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
-    //and the correspond call back is executed HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback()
-    //Therefore callback functions should only pass indication whether receive has been completed
-    //or just do nothing
-    HAL_UART_DMAStop(&huart1);
-    temp = __HAL_DMA_GET_COUNTER(huart1.hdmarx);
-    //temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
-    receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
-    receiveEndFlag = 1;
-  }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */

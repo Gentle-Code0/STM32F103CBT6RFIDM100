@@ -21,9 +21,7 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-volatile uint8_t receivedDataLength = 0;
-volatile uint8_t receiveEndFlag = 0;
-uint8_t rxBuffer[RXBUFFER_SIZE];
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;

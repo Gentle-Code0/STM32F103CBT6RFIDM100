@@ -29,18 +29,14 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-#include "stdio.h"
+
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
-//DMA buffer size has to be large enough to store upcoming data before last receive is processed
-#define RXBUFFER_SIZE 100
 
-extern volatile uint8_t receivedDataLength;
-extern volatile uint8_t receiveEndFlag;
-extern uint8_t rxBuffer[RXBUFFER_SIZE];
+
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

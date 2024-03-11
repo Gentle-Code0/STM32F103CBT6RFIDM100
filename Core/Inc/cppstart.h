@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+extern RFIDCommands RFID1(huart1);
+
 void idle_init();
 void cpp_start();
 
