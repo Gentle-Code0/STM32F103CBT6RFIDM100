@@ -168,6 +168,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 //Set new baudrate for uart after the initialization of uart peripheral
 //mostly used for RFID module
+//TO DO:need to rewrite
 void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 {
   huart1.Init.BaudRate = newBaudrate;
@@ -175,6 +176,7 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
   {
     Error_Handler();
   }
-
 }
+
+
 /* USER CODE END 1 */
