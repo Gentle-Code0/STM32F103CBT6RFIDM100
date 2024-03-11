@@ -68,7 +68,7 @@ public:
     //This class must have a valid UART_HandleTypeDef address
     RFIDCommands() = delete; 
     RFIDCommands(UART_HandleTypeDef& huart):
-    uartNumber(&huart){}
+    uartHandleInstance(&huart){}
     
     //Functions for sending message through tx
     void get_module_info();
@@ -90,7 +90,7 @@ public:
     uint8_t* return_databuffer_address();
 private:
     //Variables should not change after construction
-    UART_HandleTypeDef* uartNumber;
+    UART_HandleTypeDef* uartHandleInstance;
 
     //Variables will change
     uint16_t packetLossTime = 0;

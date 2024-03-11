@@ -2,8 +2,8 @@
 
 void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
 {
-    HAL_UART_Transmit_DMA(uartNumber, bytes, size);  //Transmit using DMA
-    //HAL_UART_Transmit_IT(&uartNumber, bytes, size);  
+    HAL_UART_Transmit_DMA(uartHandleInstance, bytes, size);  //Transmit using DMA
+    //HAL_UART_Transmit_IT(&uartHandleInstance, bytes, size);  
 }
 
 void RFIDCommands::get_module_info()
