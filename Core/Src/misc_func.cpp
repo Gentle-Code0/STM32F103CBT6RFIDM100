@@ -61,3 +61,22 @@ void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
         }
     }
 }
+
+//Set new baudrate for uart after the initialization of uart peripheral
+//mostly used for RFID module
+void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
+{
+    //Set state to busy
+    huart->gState = HAL_UART_STATE_BUSY;
+
+    /* Disable the peripheral */
+    __HAL_UART_DISABLE(huart);
+
+    assert_param(IS_UART_BAUDRATE(huart->Init.BaudRate));
+
+    /* Enable the peripheral */
+    __HAL_UART_ENABLE(huart);
+
+    //set state to ready
+    huart->gState = HAL_UART_STATE_READY;
+}
