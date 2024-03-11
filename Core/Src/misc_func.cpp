@@ -66,6 +66,8 @@ void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
 //mostly used for RFID module
 void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 {
+    uint32_t pclk;
+
     //Set state to busy
     huart->gState = HAL_UART_STATE_BUSY;
 
@@ -74,6 +76,30 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 
     assert_param(IS_UART_BAUDRATE(huart->Init.BaudRate));
 
+    if(huart->Instance == USART1)
+    {
+        pclk = HAL_RCC_GetPCLK2Freq();
+    }
+    else
+    {
+        pclk = HAL_RCC_GetPCLK1Freq();
+    }
+
+    //set the new baudrate
+    /*-------------------------- USART BRR Configuration ---------------------*/
+    #if defined(USART_CR1_OVER8)
+    if (huart->Init.OverSampling == UART_OVERSAMPLING_8)
+    {
+        huart->Instance->BRR = UART_BRR_SAMPLING8(pclk, huart->Init.BaudRate);
+    }
+    else
+    {
+        huart->Instance->BRR = UART_BRR_SAMPLING16(pclk, huart->Init.BaudRate);
+    }
+    #else
+    huart->Instance->BRR = UART_BRR_SAMPLING16(pclk, huart->Init.BaudRate);
+    #endif /* USART_CR1_OVER8 */
+    
     /* Enable the peripheral */
     __HAL_UART_ENABLE(huart);
 
