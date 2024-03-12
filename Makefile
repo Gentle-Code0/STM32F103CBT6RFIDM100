@@ -74,7 +74,8 @@ CPP_SOURCES = \
 Core/Src/cppstart.cpp \
 Core/Src/RFID_low_level.cpp \
 Core/InterfaceSrc/RFID_low_level_interface.cpp \
-Core/Src/misc_func.cpp
+Core/Src/misc_func.cpp \
+Core/Src/RFID.cpp
 
 # ASM sources
 ASM_SOURCES =  \
