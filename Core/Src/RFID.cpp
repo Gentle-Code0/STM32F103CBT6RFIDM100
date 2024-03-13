@@ -104,7 +104,7 @@ uint8_t RFIDModule::errorJudge(const uint8_t data[], uint8_t size)
         errorType = NotaPacket;
     }
 
-    if(errorType != 0) //Write broadcast code here
+    if(errorType != NoError) //Write broadcast code here
     {
         switch(errorType){
             case NotaPacket:
@@ -121,6 +121,8 @@ uint8_t RFIDModule::errorJudge(const uint8_t data[], uint8_t size)
                 break;
             case OtherError:
                 packetLossTime ++;
+                break;
+            default:
                 break;
         }
     }
