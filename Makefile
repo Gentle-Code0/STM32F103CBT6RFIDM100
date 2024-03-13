@@ -73,7 +73,6 @@ Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 CPP_SOURCES = \
 Core/Src/cppstart.cpp \
 Core/Src/RFID_low_level.cpp \
-Core/InterfaceSrc/RFID_low_level_interface.cpp \
 Core/Src/misc_func.cpp \
 Core/Src/RFID.cpp
 
