@@ -73,7 +73,7 @@ public:
     //Functions for sending message through tx
     void get_module_info();
     void single_polling();
-    void multi_polling(uint16_t pollingTimes);
+    void multi_polling(uint16_t pollingTime);
     void stop_multi_polling();
     void set_baudrate(uint16_t baudrate);
     void get_transmitpower();
