@@ -21,6 +21,21 @@ public:
     void enable();
     void disable();
 
+    //Commands that can be sent to RFIDModule
+    void scan();
+    void multi_scan(uint16_t scanTime);
+    void force_stop_multi_scan();
+    void get_module_info();
+    void set_baudrate(uint16_t newBaudRate);
+    void get_transmitpower();
+    void set_new_transmitpower(uint16_t newPowerDbm);
+    void enter_sleep_mode();
+    void awake_module();
+    void set_autosleep_time(uint8_t timeMinute);
+    void enter_IDLEmode();
+    void set_autoIDLE_time(uint8_t timeMinute);
+    void exit_IDLEmode();
+
     //Data processing function when rx receive is complete
     void received_data_processing();
 

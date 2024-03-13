@@ -81,6 +81,9 @@ public:
     void set_sleep_mode();
     void set_auto_sleep_time(uint8_t time);
     void enter_IDLEmode(uint8_t time);
+    void exit_IDLEmode();
+    void send_one_byte();
+
 private:
     //Variables should not change after construction
     UART_HandleTypeDef* uartHandleInstance;

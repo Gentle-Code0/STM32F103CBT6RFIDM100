@@ -92,6 +92,20 @@ void RFIDCommands::enter_IDLEmode(uint8_t time)
     txpacket(data, sizeof(data));
 }
 
+void RFIDCommands::exit_IDLEmode()
+{
+    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, 0, RFID_PACKET_LENGTH_0003, 
+    RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, 0, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+    checksum(data, sizeof(data) - 2);
+    txpacket(data, sizeof(data));
+}
+
+void RFIDCommands::send_one_byte()
+{
+    uint8_t byte=1;
+    txpacket(&byte, sizeof(uint8_t));
+}
+
 /*The Checksum is the sum from the Frame Type byte to the last Instruction Parameter byte,
 and takes only the sum's lowest byte (LSB). Checksum is used to verify if the transmit is correct.
 !!Also please notice that checksum function has already ignored the first byte but not the last 2 bytes of the packet!!*/

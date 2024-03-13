@@ -1,5 +1,87 @@
 #include "RFID.h"
 
+void RFIDModule::scan()
+{
+    m_commands.single_polling();
+}
+
+//scanTime is the number of time RFID module will scan through
+void RFIDModule::multi_scan(uint16_t scanTime)
+{
+    m_commands.multi_polling(scanTime);
+}
+
+void RFIDModule::force_stop_multi_scan()
+{
+    m_commands.stop_multi_polling();
+}
+
+//This command will tell RFID module to send back its module information,
+//including hardware version, software version, manufacturer
+void RFIDModule::get_module_info()
+{
+    m_commands.get_module_info();
+}
+
+//newBaudRate is calculated by baudrate/100
+void RFIDModule::set_baudrate(uint16_t newBaudRate)
+{
+    m_commands.set_baudrate(newBaudRate);
+}
+
+void RFIDModule::get_transmitpower()
+{
+    m_commands.get_transmitpower();
+}
+
+//newPowerDbm is the intended transimission power value in dbm mutiplied by 100
+void RFIDModule::set_new_transmitpower(uint16_t newPowerDbm)
+{
+    m_commands.set_transmitpower(newPowerDbm);
+}
+
+//Sleep mode will make module run in a low power consumption mode.
+//Module can be awaken by sending any byte to it.
+//If a command frame is directly sent to the module in sleep mode,
+//this module will not response to this command
+void RFIDModule::enter_sleep_mode()
+{
+    m_commands.set_sleep_mode();
+}
+
+//This function will awake the module from sleep mode by sending only 1 byte to it
+void RFIDModule::awake_module()
+{
+    m_commands.send_one_byte();
+}
+
+//timeMinute is the time in minute that the module will wait before automatically enter sleep mode
+void RFIDModule::set_autosleep_time(uint8_t timeMinute)
+{
+    m_commands.set_auto_sleep_time(timeMinute);
+}
+
+//This command will make module immediately enter IDLE mode,
+//also reset module's auto IDLE time to invalid
+void RFIDModule::enter_IDLEmode()
+{
+    m_commands.enter_IDLEmode(0);
+}
+
+//timeMinute is the time in minute that the module will wait before automatically enter IDLE mode
+void RFIDModule::set_autoIDLE_time(uint8_t timeMinute)
+{
+    m_commands.enter_IDLEmode(timeMinute);
+}
+
+//This command will make module exit IDLE mode,
+//also reset module's auto IDLE time to invalid.
+//However, module can exit IDLE mode when polling or reading command is received
+void RFIDModule::exit_IDLEmode()
+{
+    m_commands.exit_IDLEmode();
+}
+
 //Using global veriables rxBuffer, reveivedDataLength, receiveEndFlag
 //Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDModule::received_data_processing()
