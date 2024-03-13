@@ -68,7 +68,7 @@ uint16_t RFIDModule::get_packet_loss_time()
 //TO DO: broadcast error information to serial port
 uint8_t RFIDModule::errorJudge(const uint8_t data[], uint8_t size) 
 {
-    uint8_t errorType = 0;
+    RFIDErrorTypes errorType = NoError;
     uint8_t checksumValue = data[size -2];
 
     if(data[0] == RFID_START_BYTE && data[size - 1] == RFID_END_BYTE && size <RXBUFFER_SIZE)
