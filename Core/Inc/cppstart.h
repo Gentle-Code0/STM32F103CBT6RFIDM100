@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 void idle_init();
-void cpp_start();
+void RFID_DMA_receive();
 
 #ifdef __cplusplus
 }

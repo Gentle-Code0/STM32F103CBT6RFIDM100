@@ -103,7 +103,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    cpp_start();
+    RFID_DMA_receive();
     HAL_Delay(1000); //For Debug usage
   }
   /* USER CODE END 3 */

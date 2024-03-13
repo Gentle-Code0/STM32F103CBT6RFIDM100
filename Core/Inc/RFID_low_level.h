@@ -81,30 +81,14 @@ public:
     void set_sleep_mode();
     void set_auto_sleep_time(uint8_t time);
     void enter_IDLEmode(uint8_t time);
-
-    //Functions related rx
-    uint16_t getPacketLossTime();
-    void receivedDataProcessing();
-
-    //Functions related to private variables
-    uint8_t* return_databuffer_address();
 private:
     //Variables should not change after construction
     UART_HandleTypeDef* uartHandleInstance;
-
-    //Variables will change
-    uint16_t packetLossTime = 0;
-    uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
-    uint8_t bufferOccupiedLength = 0;
 
     void txpacket(const uint8_t bytes[], size_t size); //Sending packet through tx
     //void rxpacket(uint8_t bytes[], uint8_t size);
 
     void checksum(uint8_t bytes[], size_t size); //checksum check for both rx and tx
-
-    //Functions related to rx received data processing
-    void resetClassVariables();
-    uint8_t errorJudge(const uint8_t data[], uint8_t size);
 };
 
 enum RFIDErrorTypes{
