@@ -1,5 +1,15 @@
 #include "RFID.h"
 
+void RFIDModule::enable()
+{
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+}
+
+void RFIDModule::disable()
+{
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+}
+
 void RFIDModule::scan()
 {
     m_commands.single_polling();
