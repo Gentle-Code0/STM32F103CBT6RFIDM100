@@ -8,6 +8,7 @@ RFIDModule RFID1(huart1);
 void idle_init(){
     __HAL_UART_ENABLE_IT(RFID1.uartHandleInstance, UART_IT_IDLE);
     HAL_UARTEx_ReceiveToIdle_DMA(RFID1.uartHandleInstance, rxBuffer, RXBUFFER_SIZE);
+    RFID1.enable();
 }
 
 void RFID1_DMA_receive(){
