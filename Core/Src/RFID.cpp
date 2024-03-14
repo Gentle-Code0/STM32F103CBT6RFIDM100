@@ -82,6 +82,11 @@ void RFIDModule::exit_IDLEmode()
     m_commands.exit_IDLEmode();
 }
 
+/*void RFIDModule::start_nonblock_receive()
+{
+    HAL_UARTEx_ReceiveToIdle_DMA(uartHandleInstance, rxBuffer, RXBUFFER_SIZE);
+}*/
+
 //Using global veriables rxBuffer, reveivedDataLength, receiveEndFlag
 //Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDModule::received_data_processing()

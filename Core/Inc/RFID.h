@@ -17,6 +17,9 @@ public:
     RFIDModule(UART_HandleTypeDef& huart):
     uartHandleInstance(&huart), m_commands(*uartHandleInstance){}
 
+    //Should not change after construction
+    UART_HandleTypeDef* uartHandleInstance;
+
     //enable and disable of RFID module
     void enable();
     void disable();
@@ -36,6 +39,8 @@ public:
     void set_autoIDLE_time(uint8_t timeMinute);
     void exit_IDLEmode();
 
+    //Start a non-blocking receive through DMA until idle
+    //void start_nonblock_receive();
     //Data processing function when rx receive is complete
     void received_data_processing();
 
@@ -50,7 +55,6 @@ private:
     uint8_t errorJudge(const uint8_t data[], uint8_t size);
 
     //Variables should not change after construction
-    UART_HandleTypeDef* uartHandleInstance;
     RFIDCommands m_commands;
     uint8_t enable_pin = 0;
 
