@@ -53,9 +53,10 @@ void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
                 //Therefore callback functions should only pass indication whether receive has been completed
                 //or just do nothing
                 HAL_UART_DMAStop(huart);
-                temp = __HAL_DMA_GET_COUNTER(huart->hdmarx);
+                //temp = __HAL_DMA_GET_COUNTER(huart->hdmarx);
                 //temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
-                receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
+                //receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
+                receivedDataLength = (uint8_t)Pos;
                 receiveEndFlag = 1;
             }
         }
