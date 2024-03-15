@@ -21,3 +21,7 @@ void RFID1_DMA_receive(){
         print_to_USB(RFID1.return_databuffer_address());
     }
 }
+
+void RFID1_DMA_send(){
+    RFID1.get_module_info();
+}
