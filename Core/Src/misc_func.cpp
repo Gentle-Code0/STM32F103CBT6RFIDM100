@@ -41,24 +41,22 @@ void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
         {
             uint32_t tmpFlag = 0;
             uint32_t temp;
-            tmpFlag = __HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE); //Get IDLE flag bit 
-            if(tmpFlag != RESET)
-            {
-                __HAL_UART_CLEAR_IDLEFLAG(huart); //Clear IDLE flag so that IDLE interrupt can be triggered again.
-                temp = huart->Instance->DR; //This and following registers will be cleared on read
-                temp = huart->Instance->SR;
 
-                //when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
-                //and the correspond call back is executed HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback()
-                //Therefore callback functions should only pass indication whether receive has been completed
-                //or just do nothing
-                HAL_UART_DMAStop(huart);
-                //temp = __HAL_DMA_GET_COUNTER(huart->hdmarx);
-                //temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
-                //receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
-                receivedDataLength = (uint8_t)Pos;
-                receiveEndFlag = 1;
-            }
+            temp = huart->Instance->DR; //This and following registers will be cleared on read
+            temp = huart->Instance->SR;
+
+            //when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
+            //and the correspond call back is executed HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback()
+            //Therefore callback functions should only pass indication whether receive has been completed
+            //or just do nothing
+            HAL_UART_DMAStop(huart);
+            //temp = __HAL_DMA_GET_COUNTER(huart->hdmarx);
+            //temp = hdma_usart1_rx.Instance->CNDTR; //Get number of bytes that are not occupied by the received data at this moment.
+            //receivedDataLength = (uint8_t)RXBUFFER_SIZE - (uint8_t)temp;
+            receivedDataLength = (uint8_t)Pos;
+            receiveEndFlag = 1;
+
+            huart->RxEventType = HAL_UART_RXEVENT_TC; //reset huart->RxEventType to default
         }
     }
 }
