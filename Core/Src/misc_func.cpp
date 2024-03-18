@@ -57,6 +57,8 @@ void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
             receiveEndFlag = 1;
 
             huart->RxEventType = HAL_UART_RXEVENT_TC; //reset huart->RxEventType to default
+
+            RFID1_DMA_receive(); //received data processing
         }
     }
 }

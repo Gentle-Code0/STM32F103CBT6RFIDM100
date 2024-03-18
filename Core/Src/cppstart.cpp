@@ -18,7 +18,7 @@ void RFID1_DMA_receive(){
         RFID1.received_data_processing();
         receiveEndFlag = 0;
         HAL_UARTEx_ReceiveToIdle_DMA(RFID1.uartHandleInstance, rxBuffer, RXBUFFER_SIZE); //restart the DMA receiving process
-        print_to_USB(RFID1.return_databuffer_address());
+        //print_to_USB(RFID1.return_databuffer_address());
     }
 }
 
