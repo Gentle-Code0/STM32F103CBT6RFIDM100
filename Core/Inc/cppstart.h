@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void idle_init();
+void user_init();
 void RFID1_DMA_receive();
 void RFID1_DMA_send();
 
