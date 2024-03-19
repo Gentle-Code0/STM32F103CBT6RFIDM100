@@ -27,7 +27,7 @@ void register_callback_init(UART_HandleTypeDef* huart)
 }
 
 //For idle interrupt, pos is dmabuffer size minus remained damabuffer space(RxCounter)
-void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos)
+void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
 {
     if(huart->Instance == USART1)
     {
@@ -104,4 +104,12 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 
     //set state to ready
     huart->gState = HAL_UART_STATE_READY;
+}
+
+//print data to USB-TTL function
+void print_to_TTL(UART_HandleTypeDef *huart, uint8_t* data, uint16_t dataSize)
+{
+#ifdef TTL_DEBUG
+    HAL_UART_Transmit(huart, data, dataSize, 500);
+#endif // TTL_DEBUG
 }
