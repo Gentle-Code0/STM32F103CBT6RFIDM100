@@ -8,6 +8,7 @@ extern "C" {
 #include <stdint.h>
 #include "usbd_cdc_if.h"
 #include "cppstart.h"
+#include "AppConfig.h"
 
 //DMA buffer size has to be large enough to store upcoming data before last receive is processed
 #define RXBUFFER_SIZE 100
@@ -29,6 +30,8 @@ void register_callback_init(UART_HandleTypeDef* huart);
 void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos);
 
 void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate);
+
+void print_to_TTL(UART_HandleTypeDef *huart, uint8_t* data, uint16_t dataSize);
 
 #ifdef __cplusplus
 }
