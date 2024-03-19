@@ -109,9 +109,12 @@ void RFIDModule::received_data_processing()
     errortype = errorJudge(receivedDataBuffer, bufferOccupiedLength);
     if(errortype == NoError)
     {
-        if(receivedDataBuffer[1] == 0x02) //A response frame, the most common
+        if(receivedDataBuffer[1] == 0x01) //A response frame, the most common
         {
             switch(receivedDataBuffer[2]){
+                case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"module information notification\n", sizeof("module information notification\n") - 1);
+                    break;
                 case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
                     print_to_TTL(uartHandleInstance, (uint8_t*)"stop multi polling response\n", sizeof("stop multi polling response\n") - 1);
                     break;
@@ -132,12 +135,9 @@ void RFIDModule::received_data_processing()
                     break;
             }
         } 
-        else if(receivedDataBuffer[1] == 0x01) //A notify frame
+        else if(receivedDataBuffer[1] == 0x02) //A notify frame
         {
             switch(receivedDataBuffer[2]){
-                case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
-                    print_to_TTL(uartHandleInstance, (uint8_t*)"module information notification\n", sizeof("module information notification\n") - 1);
-                    break;
                 case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
                     print_to_TTL(uartHandleInstance, (uint8_t*)"single polling notification\n", sizeof("single polling notification\n") - 1);
                     break;
