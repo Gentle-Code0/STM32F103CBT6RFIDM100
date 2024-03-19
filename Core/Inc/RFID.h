@@ -53,7 +53,7 @@ public:
     uint16_t return_databuffer_occupied_size();
 private:
     void resetClassVariables();
-    uint8_t errorJudge(const uint8_t data[], uint8_t size);
+    RFIDErrorTypes errorJudge(const uint8_t data[], uint8_t size);
 
     //Variables should not change after construction
     RFIDCommands m_commands;

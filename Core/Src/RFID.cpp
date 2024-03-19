@@ -101,45 +101,48 @@ void RFIDModule::exit_IDLEmode()
 //Does not contain if judge sentence and reboot of DMA receive process,
 void RFIDModule::received_data_processing()
 {
+    RFIDErrorTypes errortype = NoError;
     resetClassVariables();
     copy_array(rxBuffer, receivedDataBuffer, receivedDataLength);
     bufferOccupiedLength = receivedDataLength;
-    if(errorJudge(receivedDataBuffer, bufferOccupiedLength) == 0)
+
+    errortype = errorJudge(receivedDataBuffer, bufferOccupiedLength);
+    if(errortype == NoError)
     {
         if(receivedDataBuffer[1] == 0x02) //A response frame, the most common
         {
             switch(receivedDataBuffer[2]){
-                case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
-
-                    break;
                 case RFID_STOP_MULTI_POLLING_COMMAND: //A response for stopping multiple polling command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"stop multi polling response\n", sizeof("stop multi polling response\n") - 1);
                     break;
                 case RFID_GET_TRANSMIT_POWER_COMMAND: //A response for getting transmitting power command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"transmit power data\n", sizeof("transmit power data\n") - 1);
                     break;
                 case RFID_SET_TRANSMIT_POWER_COMMAND: //A response for setting transmitting power command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"set transmit power response\n", sizeof("set transmit power response\n") - 1);
                     break;
                 case RFID_SET_SLEEP_MODE_COMMAND: //A response for setting sleep mode command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"set sleep mode response\n", sizeof("set sleep mode response\n") - 1);
                     break;
                 case RFID_SET_ATUO_SLEEP_TIME_COMMAND: //A response for setting time that module waits before automatically going into sleep mode command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"set auto sleep time response\n", sizeof("set auto sleep time response\n") - 1);
                     break;
                 case RFID_SET_IDLE_COMMAND: //A response for setting IDLE mode configuration command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"set idle response\n", sizeof("set idle response\n") - 1);
                     break;
             }
         } 
         else if(receivedDataBuffer[1] == 0x01) //A notify frame
         {
             switch(receivedDataBuffer[2]){
+                case RFID_GET_MODULE_INFO_COMMAND:  //A response for getting module hardware version command
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"module information notification\n", sizeof("module information notification\n") - 1);
+                    break;
                 case RFID_SINGLE_POLLING_COMMAND: //A notification for single polling command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"single polling notification\n", sizeof("single polling notification\n") - 1);
                     break;
                 case RFID_MULTI_POLLING_COMMAND: //A notification for multiple polling command
-
+                    print_to_TTL(uartHandleInstance, (uint8_t*)"multi polling notification\n", sizeof("multi polling notification\n") - 1);
                     break;
             }
         }
@@ -163,7 +166,7 @@ uint16_t RFIDModule::get_packet_loss_time()
 
 //Judges if there is an error and outputs error messasge
 //TO DO: broadcast error information to serial port
-uint8_t RFIDModule::errorJudge(const uint8_t data[], uint8_t size) 
+RFIDErrorTypes RFIDModule::errorJudge(const uint8_t data[], uint8_t size) 
 {
     RFIDErrorTypes errorType = NoError;
     uint8_t checksumValue = data[size -2];
