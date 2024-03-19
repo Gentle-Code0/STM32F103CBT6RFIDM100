@@ -230,3 +230,8 @@ uint8_t* RFIDModule::return_databuffer_address()
 {
     return receivedDataBuffer;
 }
+
+uint16_t RFIDModule::return_databuffer_occupied_size()
+{
+    return bufferOccupiedLength;
+}

@@ -47,9 +47,10 @@ public:
     //Return the value of the packet loss time
     uint16_t get_packet_loss_time();
 
-    //Return the address of the data buffer in RFIDModule class
+    //Return the information of the data buffer in RFIDModule class
     //Usually for printing
     uint8_t* return_databuffer_address();
+    uint16_t return_databuffer_occupied_size();
 private:
     void resetClassVariables();
     uint8_t errorJudge(const uint8_t data[], uint8_t size);
@@ -61,7 +62,7 @@ private:
     //Variables will change
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
-    uint8_t bufferOccupiedLength = 0;    
+    uint16_t bufferOccupiedLength = 0;    
 };
 
 #ifdef __cplusplus
