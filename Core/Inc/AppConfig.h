@@ -6,12 +6,11 @@
 #define BAUD_RATE 115200 //Remember to change it if baud rate is changed in STM32CubeMX!
 
 //System define
-
+#define TTL_DEBUG 1 //decide whether it is using an USB-TTL device to replace an RFID module
 
 //RFID Config
 #define FIRST_RFID_UART huart1
 #define SECOND_RFID_UART huart2
 #define RFID_PACKET_BUFFER_SIZE 50
-#define RFID_RX_SECOND_RECEIVED_BYTES 4 //The number of bytes that is going to be received from RFID module through rx pin for the second time
 
 #endif /*__APP_CONFIG_H__*/

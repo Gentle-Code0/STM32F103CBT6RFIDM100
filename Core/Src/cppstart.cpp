@@ -2,8 +2,9 @@
 #include "RFID_low_level.h"
 #include "usart.h"
 #include "RFID.h"
+#include "AppConfig.h"
 
-RFIDModule RFID1(huart1);
+RFIDModule RFID1(FIRST_RFID_UART);
 
 void user_init(){
     __HAL_UART_ENABLE_IT(RFID1.uartHandleInstance, UART_IT_IDLE);
