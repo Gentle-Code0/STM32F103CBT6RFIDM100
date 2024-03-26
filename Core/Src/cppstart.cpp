@@ -10,8 +10,8 @@ void user_init(){
     __HAL_UART_ENABLE_IT(RFID1.uartHandleInstance, UART_IT_IDLE);
     register_callback_init(RFID1.uartHandleInstance);
     RFID1.enable();
-    RFID1.set_baudrate(BAUD_RATE);
     HAL_UARTEx_ReceiveToIdle_DMA(RFID1.uartHandleInstance, rxBuffer, RXBUFFER_SIZE);
+    RFID1.set_baudrate(BAUD_RATE);
 }
 
 void RFID1_DMA_receive(){

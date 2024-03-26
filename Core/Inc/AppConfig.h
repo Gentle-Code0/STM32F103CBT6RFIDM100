@@ -6,7 +6,7 @@
 #define BAUD_RATE 115200 //Remember to change it if baud rate is changed in STM32CubeMX!
 
 //System define
-#define TTL_DEBUG 1 //decide whether it is using an USB-TTL device to replace an RFID module
+#define TTL_DEBUG 0 //decide whether it is using an USB-TTL device to replace an RFID module
 
 //RFID Config
 #define FIRST_RFID_UART huart1

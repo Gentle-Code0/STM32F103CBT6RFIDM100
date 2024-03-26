@@ -104,7 +104,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     RFID1_DMA_send();
-    //RFID1_DMA_receive();
     HAL_Delay(1000); //For Debug usage
   }
   /* USER CODE END 3 */

@@ -184,42 +184,47 @@ RFIDErrorTypes RFIDModule::errorJudge(const uint8_t data[], uint8_t size)
                 switch(data[5]){
                     case 0x17:
                         //Command frame is wrong
-                        errorType = CommandError;
+                        errorType = CommandError;                        
                         break;
                     case 0x15:
                         //Polling is failed
-                        errorType = PollingFail;
+                        errorType = PollingFail;                        
                         break;
                     default:
                         //Other error, can be expanded to more detailed error types, according to user manual
-                        errorType = OtherError;
+                        errorType = OtherError;                        
                 }
             }
         } else {
             //checksum wrong
-            errorType = ChecksumWrong;
+            errorType = ChecksumWrong;            
         }
     } else {
         //not a packet
-        errorType = NotaPacket;
+        errorType = NotaPacket;        
     }
 
     if(errorType != NoError) //Write broadcast code here
     {
         switch(errorType){
             case NotaPacket:
+                print_to_TTL(uartHandleInstance, (uint8_t *)"Error is NotaPacket", sizeof("Error is NotaPacket") - 1);
                 packetLossTime ++;
                 break;
             case ChecksumWrong:
+                print_to_TTL(uartHandleInstance, (uint8_t *)"Error is ChecksumError", sizeof("Error is ChecksumError") - 1);
                 packetLossTime ++;
                 break;
             case CommandError:
+                print_to_TTL(uartHandleInstance, (uint8_t *)"Error is CommandError", sizeof("Error is CommandError") - 1);
                 packetLossTime ++;
                 break;
             case PollingFail:
+                print_to_TTL(uartHandleInstance, (uint8_t *)"Error is PollingError", sizeof("Error is PollingError") - 1);
                 packetLossTime ++;
                 break;
             case OtherError:
+                print_to_TTL(uartHandleInstance, (uint8_t *)"Error is OtherError", sizeof("Error is OtherError") - 1);
                 packetLossTime ++;
                 break;
             default:
