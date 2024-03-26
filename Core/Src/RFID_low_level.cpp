@@ -42,9 +42,9 @@ void RFIDCommands::stop_multi_polling()
     txpacket(stop_polling_frame, sizeof(stop_polling_frame));
 }
 
-void RFIDCommands::set_baudrate(uint16_t baudrate)
+void RFIDCommands::set_baudrate(uint32_t baudrate)
 {
-    uint16_t powPara = baudrate/100; //Intended baud rate has to be divided by 100 to be used by RFID module
+    uint32_t powPara = baudrate/100; //Intended baud rate has to be divided by 100 to be used by RFID module
     set_baudrate_frame[5] = uint8_t((powPara >> 8) & 0xFF);
     set_baudrate_frame[6] = uint8_t(powPara & 0xFF);
     checksum(set_baudrate_frame, sizeof(set_baudrate_frame) - 2);

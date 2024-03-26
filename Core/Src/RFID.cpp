@@ -34,7 +34,7 @@ void RFIDModule::get_module_info()
 }
 
 //newBaudRate is calculated by baudrate/100
-void RFIDModule::set_baudrate(uint16_t newBaudRate)
+void RFIDModule::set_baudrate(uint32_t newBaudRate)
 {
     m_commands.set_baudrate(newBaudRate);
 }

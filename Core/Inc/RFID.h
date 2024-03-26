@@ -29,7 +29,7 @@ public:
     void multi_scan(uint16_t scanTime);
     void force_stop_multi_scan();
     void get_module_info();
-    void set_baudrate(uint16_t newBaudRate);
+    void set_baudrate(uint32_t newBaudRate);
     void get_transmitpower();
     void set_new_transmitpower(uint16_t newPowerDbm);
     void enter_sleep_mode();

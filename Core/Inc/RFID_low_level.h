@@ -75,7 +75,7 @@ public:
     void single_polling();
     void multi_polling(uint16_t pollingTime);
     void stop_multi_polling();
-    void set_baudrate(uint16_t baudrate);
+    void set_baudrate(uint32_t baudrate);
     void get_transmitpower();
     void set_transmitpower(uint16_t powerdbm);
     void set_sleep_mode();

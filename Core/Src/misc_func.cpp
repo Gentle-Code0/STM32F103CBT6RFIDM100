@@ -39,7 +39,6 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
         //one can write seperate code for processing
         if(huart->RxEventType == HAL_UART_RXEVENT_IDLE) 
         {
-            uint32_t tmpFlag = 0;
             uint32_t temp;
 
             temp = huart->Instance->DR; //This and following registers will be cleared on read
