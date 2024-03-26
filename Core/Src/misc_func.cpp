@@ -109,7 +109,7 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 //print data to USB-TTL function
 void print_to_TTL(UART_HandleTypeDef *huart, uint8_t* data, uint16_t dataSize)
 {
-#ifdef TTL_DEBUG
+#if TTL_DEBUG
     HAL_UART_Transmit(huart, data, dataSize, 500);
 #endif // TTL_DEBUG
 }

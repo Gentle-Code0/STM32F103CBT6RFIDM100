@@ -1,6 +1,19 @@
 #include "RFID_low_level.h"
 
-void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
+//RFID Firmware Command Frame
+uint8_t const module_info_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_MODULE_INFO_COMMAND, RFID_PACKET_LENGTH_0001, RFID_HARDWARE_VERSION_PARAMETER, 0x04, RFID_END_BYTE};
+uint8_t const single_polling_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SINGLE_POLLING_COMMAND, RFID_PACKET_LENGTH_0000, 0x22, RFID_END_BYTE};
+uint8_t multi_polling_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_MULTI_POLLING_COMMAND, RFID_PACKET_LENGTH_0003, RFID_MULTI_POLLING_RESERVED_BYTE, 0x00, 0x00, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+uint8_t const stop_polling_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_STOP_MULTI_POLLING_COMMAND, RFID_PACKET_LENGTH_0000, 0x28, RFID_END_BYTE};
+uint8_t set_baudrate_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_BAUDRATE_COMMAND, RFID_PACKET_LENGTH_0002, 0x00, 0x00, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+uint8_t const get_transmitpower_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_TRANSMIT_POWER_COMMAND, RFID_PACKET_LENGTH_0000, 0xB7, RFID_END_BYTE};
+uint8_t set_transmitpower_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_TRANSMIT_POWER_COMMAND, RFID_PACKET_LENGTH_0001, 0x00, 0x00, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+uint8_t const sleep_mode_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_SLEEP_MODE_COMMAND, RFID_PACKET_LENGTH_0000, 0x17, RFID_END_BYTE};
+uint8_t set_auto_sleep_time_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_ATUO_SLEEP_TIME_COMMAND, RFID_PACKET_LENGTH_0001, 0x00, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+uint8_t IDLE_mode_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_IDLE_COMMAND, RFID_PACKET_LENGTH_0003, RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, 0x00, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
+uint8_t const exit_IDLEmode_frame[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_IDLE_COMMAND, RFID_PACKET_LENGTH_0003, RFID_EXIT_IDLE, RFID_SET_IDLE_RESERVED, 0x00, 0x09, RFID_END_BYTE};
+
+void RFIDCommands::txpacket(const uint8_t* bytes, size_t size)
 {
     HAL_UART_Transmit_DMA(uartHandleInstance, bytes, size);  //Transmit using DMA
     //HAL_UART_Transmit_IT(&uartHandleInstance, bytes, size);  
@@ -8,98 +21,79 @@ void RFIDCommands::txpacket(const uint8_t bytes[], size_t size)
 
 void RFIDCommands::get_module_info()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_MODULE_INFO_COMMAND, RFID_PACKET_LENGTH_0001, 
-    RFID_HARDWARE_VERSION_PARAMETER, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(module_info_frame, sizeof(module_info_frame));
 }
 
 void RFIDCommands::single_polling()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SINGLE_POLLING_COMMAND, RFID_PACKET_LENGTH_0000, 
-    RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(single_polling_frame, sizeof(single_polling_frame));
 }
 
 void RFIDCommands::multi_polling(uint16_t pollingTimes)
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_MULTI_POLLING_COMMAND, RFID_PACKET_LENGTH_0003, 
-    RFID_MULTI_POLLING_RESERVED_BYTE, uint8_t((pollingTimes >> 8) & 0xFF), uint8_t(pollingTimes & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    multi_polling_frame[6] = uint8_t((pollingTimes >> 8) & 0xFF);
+    multi_polling_frame[7] = uint8_t(pollingTimes & 0xFF);
+    checksum(multi_polling_frame, sizeof(multi_polling_frame));
+    txpacket(multi_polling_frame, sizeof(multi_polling_frame));
 }
 
 void RFIDCommands::stop_multi_polling()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_STOP_MULTI_POLLING_COMMAND, RFID_PACKET_LENGTH_0000, 
-    RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(stop_polling_frame, sizeof(stop_polling_frame));
 }
 
 void RFIDCommands::set_baudrate(uint16_t baudrate)
 {
     uint16_t powPara = baudrate/100; //Intended baud rate has to be divided by 100 to be used by RFID module
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_BAUDRATE_COMMAND, RFID_PACKET_LENGTH_0002, 
-    uint8_t((powPara >> 8) & 0xFF), uint8_t(powPara & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    set_baudrate_frame[5] = uint8_t((powPara >> 8) & 0xFF);
+    set_baudrate_frame[6] = uint8_t(powPara & 0xFF);
+    checksum(set_baudrate_frame, sizeof(set_baudrate_frame) - 2);
+    txpacket(set_baudrate_frame, sizeof(set_baudrate_frame));
 }
 
 void RFIDCommands::get_transmitpower()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_GET_TRANSMIT_POWER_COMMAND, RFID_PACKET_LENGTH_0000,
-    RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(get_transmitpower_frame, sizeof(get_transmitpower_frame));
 }
 
 void RFIDCommands::set_transmitpower(uint16_t powerdbm)
 {
     uint16_t powerValue = powerdbm * 100; //Intended transimission power value in dbm has to be mutiplied by 100 to be used by RFID module
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_TRANSMIT_POWER_COMMAND, RFID_PACKET_LENGTH_0001,
-    uint8_t((powerValue >> 8) & 0xFF), uint8_t(powerValue & 0xFF), RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    set_transmitpower_frame[5] = uint8_t((powerValue >> 8) & 0xFF);
+    set_transmitpower_frame[6] = uint8_t(powerValue & 0xFF);
+    checksum(set_transmitpower_frame, sizeof(set_transmitpower_frame) - 2);
+    txpacket(set_transmitpower_frame, sizeof(set_transmitpower_frame));
 }
 
 void RFIDCommands::set_sleep_mode()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_SLEEP_MODE_COMMAND, RFID_PACKET_LENGTH_0000, 
-    RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(sleep_mode_frame, sizeof(sleep_mode_frame));
 }
 
 //Time is measured in minutes,
 //time indicates how long will module wait before automatically enter sleep mode
 void RFIDCommands::set_auto_sleep_time(uint8_t time) 
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_ATUO_SLEEP_TIME_COMMAND, RFID_PACKET_LENGTH_0001, 
-    time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    set_auto_sleep_time_frame[5] = time;
+    checksum(set_auto_sleep_time_frame, sizeof(set_auto_sleep_time_frame) - 2);
+    txpacket(set_auto_sleep_time_frame, sizeof(set_auto_sleep_time_frame));
 }
 
 //Time is measured in minutes,
 //time indicates how long will module wait before automatically enter IDLE mode
 void RFIDCommands::enter_IDLEmode(uint8_t time) 
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, RFID_SET_IDLE_COMMAND, RFID_PACKET_LENGTH_0003, 
-    RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, time, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    IDLE_mode_frame[7] = time;
+    checksum(IDLE_mode_frame, sizeof(IDLE_mode_frame) - 2);
+    txpacket(IDLE_mode_frame, sizeof(IDLE_mode_frame));
 }
 
 void RFIDCommands::exit_IDLEmode()
 {
-    uint8_t data[] = {RFID_START_BYTE, RFID_COMMAND_FRAMETYPE, 0, RFID_PACKET_LENGTH_0003, 
-    RFID_ENTER_IDLE, RFID_SET_IDLE_RESERVED, 0, RFID_DEFAULT_CHECKSUM, RFID_END_BYTE};
-    checksum(data, sizeof(data) - 2);
-    txpacket(data, sizeof(data));
+    txpacket(exit_IDLEmode_frame, sizeof(exit_IDLEmode_frame));
 }
 
+//For awake purpose
 void RFIDCommands::send_one_byte()
 {
     uint8_t byte=1;

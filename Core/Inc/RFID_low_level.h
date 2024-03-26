@@ -103,9 +103,6 @@ enum RFIDErrorTypes{
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
-namespace RFIDFunctions{
-
-}
 #ifdef __cplusplus
 }  // Match extern "C"
 #endif
