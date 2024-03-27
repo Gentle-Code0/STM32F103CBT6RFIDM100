@@ -95,6 +95,7 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
         huart->Instance->BRR = UART_BRR_SAMPLING16(pclk, huart->Init.BaudRate);
     }
     #else
+    huart->Init.BaudRate = newBaudrate;
     huart->Instance->BRR = UART_BRR_SAMPLING16(pclk, huart->Init.BaudRate);
     #endif /* USART_CR1_OVER8 */
     
