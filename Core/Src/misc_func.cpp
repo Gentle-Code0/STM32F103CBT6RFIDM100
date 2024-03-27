@@ -12,13 +12,15 @@ void copy_array(uint8_t* src, uint8_t* des, uint8_t length)
     }
 }
 
-void print_to_USB(uint8_t* message)
+//USB function that is not used anymore
+/*void print_to_USB(uint8_t* message)
 {
     uint16_t Length = 0;
     Length = sizeof(message)/sizeof(uint8_t);
     CDC_Transmit_FS(message, Length);
     HAL_Delay(500); //delay for half a second
-}
+}*/
+
 
 //Register user's callback function
 void register_callback_init(UART_HandleTypeDef* huart)

@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
+#include "usart.h"
 #include <stdint.h>
-#include "usbd_cdc_if.h"
 #include "cppstart.h"
 #include "AppConfig.h"
 
@@ -21,9 +21,10 @@ extern uint8_t rxBuffer[RXBUFFER_SIZE];
 //TO DO: This function should output error message when length is larger than any of these arrays.
 void copy_array(uint8_t* src, uint8_t* des, uint8_t length);
 
+//this USB function is not used anymore
 //A print to USB function
 //!Be aware, it contains a 500ms delay!
-void print_to_USB(uint8_t* message);
+//void print_to_USB(uint8_t* message);
 
 void register_callback_init(UART_HandleTypeDef* huart);
 
