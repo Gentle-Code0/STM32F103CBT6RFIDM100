@@ -14,7 +14,6 @@ extern "C" {
 #define RXBUFFER_SIZE 100
 
 extern volatile uint8_t receivedDataLength;
-extern volatile uint8_t receiveEndFlag;
 extern uint8_t rxBuffer[RXBUFFER_SIZE];
 
 //Copy a source array to a destination array
@@ -25,10 +24,6 @@ void copy_array(uint8_t* src, uint8_t* des, uint8_t length);
 //A print to USB function
 //!Be aware, it contains a 500ms delay!
 //void print_to_USB(uint8_t* message);
-
-void register_callback_init(UART_HandleTypeDef* huart);
-
-void user_rx_callback(struct __UART_HandleTypeDef *huart, uint16_t Pos);
 
 void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate);
 
