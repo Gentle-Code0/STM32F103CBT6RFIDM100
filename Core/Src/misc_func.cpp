@@ -11,8 +11,8 @@ void register_callback_init(UART_HandleTypeDef* huart)
 //For idle interrupt, pos is dmabuffer size minus remained damabuffer space(RxCounter)
 void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
 {
-    if(huart->Instance == USART1)
-    {
+    //if(huart->Instance == USART1)
+    //{
         //RxEventType decides what kind of interrupt is triggered
         //There are 3 types of event, half receive complete, full receive complete and idle event
         //Because RFID module return data size is predictable,
@@ -36,7 +36,7 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
 
             RFID1_DMA_receive(); //received data processing
         }
-    }
+    //}
 }
 
 void RFID1_DMA_receive(){
