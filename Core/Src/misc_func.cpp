@@ -19,7 +19,7 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
         //we only deal with idle event.
         //For half reveive complete and full receive complete,
         //one can write seperate code for processing
-        if(huart->RxEventType == HAL_UART_RXEVENT_IDLE) 
+        if(HAL_UARTEx_GetRxEventType(huart) == HAL_UART_RXEVENT_IDLE) 
         {
             //huart->Instance->DR and huart->Instance->SR were already reset by hal function
             //Otherwise a temporary variable is needed to "read and clear" these two registers
@@ -32,7 +32,9 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
 
             receivedDataLength = (uint8_t)Pos;
 
-            huart->RxEventType = HAL_UART_RXEVENT_TC; //reset huart->RxEventType to default
+            //This is automatically done when calling HAL_UARTEx_ReceiveToIdle_DMA function
+            //Therefore no need to do it here.
+            //huart->RxEventType = HAL_UART_RXEVENT_TC; //reset huart->RxEventType to default
 
             RFID1_DMA_receive(); //received data processing
         }
