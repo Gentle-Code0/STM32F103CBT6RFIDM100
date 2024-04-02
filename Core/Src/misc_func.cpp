@@ -51,7 +51,6 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
             HAL_UART_DMAStop(huart);
 
             receivedDataLength = (uint8_t)Pos;
-            receiveEndFlag = 1;
 
             huart->RxEventType = HAL_UART_RXEVENT_TC; //reset huart->RxEventType to default
 
