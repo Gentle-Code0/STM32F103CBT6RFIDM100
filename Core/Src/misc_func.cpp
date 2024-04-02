@@ -41,10 +41,8 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
         //one can write seperate code for processing
         if(huart->RxEventType == HAL_UART_RXEVENT_IDLE) 
         {
-            uint32_t temp;
-
-            temp = huart->Instance->DR; //This and following registers will be cleared on read
-            temp = huart->Instance->SR;
+            //huart->Instance->DR and huart->Instance->SR were already reset by hal function
+            //Otherwise a temporary variable is needed to "read and clear" these two registers
 
             //when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
             //and the correspond call back is executed HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback()
