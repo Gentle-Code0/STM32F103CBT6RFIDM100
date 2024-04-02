@@ -9,7 +9,7 @@ extern "C" {
 #include <cstdint>
 #include "AppConfig.h"
 #include "usart.h"
-#include "misc_func.h"
+#include "low_level_misc_func.h"
 
 //RFID Firmware Command
 //For detail about how to combine these bytes please refer to M100/QM100 firmware Cmmand Instructions

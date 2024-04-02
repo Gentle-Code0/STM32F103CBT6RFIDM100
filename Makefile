@@ -63,8 +63,9 @@ Core/Src/tim.c
 CPP_SOURCES = \
 Core/Src/cppstart.cpp \
 Core/Src/RFID_low_level.cpp \
-Core/Src/misc_func.cpp \
-Core/Src/RFID.cpp
+Core/Src/low_level_misc_func.cpp \
+Core/Src/RFID.cpp \
+Core/Src/misc_func.cpp
 
 # ASM sources
 ASM_SOURCES =  \
