@@ -11,6 +11,7 @@
 //RFID Config
 #define FIRST_RFID_UART huart1
 #define SECOND_RFID_UART huart2
+#define FIRST_RFID_ENABLE_PIN GPIO_PIN_15
 #define RFID_PACKET_BUFFER_SIZE 50
 
 #endif /*__APP_CONFIG_H__*/

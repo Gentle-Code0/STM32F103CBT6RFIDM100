@@ -2,12 +2,12 @@
 
 void RFIDModule::enable()
 {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, FIRST_RFID_ENABLE_PIN, GPIO_PIN_SET);
 }
 
 void RFIDModule::disable()
 {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, FIRST_RFID_ENABLE_PIN, GPIO_PIN_RESET);
 }
 
 void RFIDModule::scan()
