@@ -112,11 +112,6 @@ void RFIDCommands::checksum(uint8_t bytes[], size_t size)
     bytes[size] = checksum;
 }
 
-void* create_new_frame_buffer()
-{
-    return new RFIDFrameBuffer;
-}
-
 void RFIDFrameBuffer::store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize)
 {
     storedSize = frameSize;
@@ -126,4 +121,9 @@ void RFIDFrameBuffer::store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& fram
 uint8_t* RFIDFrameBuffer::get_buffer_addr()
 {
     return buffer;
+}
+
+void RFIDLowLevel::create_new_frame_buffer(RFIDFrameBuffer* destination)
+{
+    destination = new RFIDFrameBuffer;
 }

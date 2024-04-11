@@ -101,9 +101,6 @@ enum RFIDErrorTypes{
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
-//create a new RFID frame buffer
-void* create_new_frame_buffer();
-
 class RFIDFrameBuffer
 {
 public:
@@ -121,6 +118,11 @@ private:
     uint8_t buffer[RFID_FRAME_BUFFER_SIZE];
     uint8_t storedSize = 0;
 };
+
+namespace RFIDLowLevel{
+    //create a new RFID frame buffer
+    void create_new_frame_buffer(RFIDFrameBuffer* destination);
+}
 
 #ifdef __cplusplus
 }  // Match extern "C"
