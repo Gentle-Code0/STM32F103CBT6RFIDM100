@@ -101,11 +101,16 @@ enum RFIDErrorTypes{
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
+//create a new RFID frame buffer
+void* create_new_frame_buffer();
+
 class RFIDFrameBuffer
 {
 public:
-    //create a new RFID frame buffer
-    RFIDFrameBuffer* create_new();
+
+    //delete current RFID frame buffer
+    ~RFIDFrameBuffer() {delete this;}
+
     //store data in frame into this RFIDFrameBuffer
     void store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
 private:
