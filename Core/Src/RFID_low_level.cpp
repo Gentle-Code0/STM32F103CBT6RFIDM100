@@ -116,3 +116,14 @@ void* create_new_frame_buffer()
 {
     return new RFIDFrameBuffer;
 }
+
+void RFIDFrameBuffer::store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize)
+{
+    storedSize = frameSize;
+    copy_array(sourceBuffer, buffer, frameSize);
+}
+
+uint8_t* RFIDFrameBuffer::get_buffer_addr()
+{
+    return buffer;
+}

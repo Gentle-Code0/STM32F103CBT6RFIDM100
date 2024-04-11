@@ -108,14 +108,18 @@ class RFIDFrameBuffer
 {
 public:
 
-    //delete current RFID frame buffer
+    //delete current RFID frame buffer，
+    //call it when merging a frame together is completed
     ~RFIDFrameBuffer() {delete this;}
 
     //store data in frame into this RFIDFrameBuffer
     void store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
+
+    //This function will return the address of the buffer
+    uint8_t* get_buffer_addr();
 private:
-    uint8_t buffer[RFID_PACKET_BUFFER_SIZE];
-    uint8_t storedSize;
+    uint8_t buffer[RFID_FRAME_BUFFER_SIZE];
+    uint8_t storedSize = 0;
 };
 
 #ifdef __cplusplus

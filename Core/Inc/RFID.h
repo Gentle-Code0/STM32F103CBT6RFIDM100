@@ -9,6 +9,12 @@ extern "C" {
 #include "usart.h"
 #include "RFID_low_level.h"
 
+enum ReceiveState{
+    NotStarted,
+    ReceiveIncomplete,
+    ReceiveComplete,
+};
+
 class RFIDModule{
 public:
     //Forbid default constructor
@@ -62,7 +68,10 @@ private:
     //Variables will change
     uint16_t packetLossTime = 0;
     uint8_t receivedDataBuffer[RFID_PACKET_BUFFER_SIZE];
-    uint16_t bufferOccupiedLength = 0;    
+    uint16_t bufferOccupiedLength = 0;
+
+    //Flags
+    ReceiveState RFIDReceiveState = NotStarted;
 };
 
 #ifdef __cplusplus
