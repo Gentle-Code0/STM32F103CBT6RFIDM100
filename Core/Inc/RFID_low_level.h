@@ -62,8 +62,6 @@ extern "C" {
 class RFIDCommands
 {
 public:
-    
-public:
     //Forbid default constructor
     //This class must have a valid UART_HandleTypeDef address
     RFIDCommands() = delete; 
@@ -101,6 +99,18 @@ enum RFIDErrorTypes{
     CommandError,
     PollingFail,
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
+};
+
+class RFIDFrameBuffer
+{
+public:
+    //create a new RFID frame buffer
+    RFIDFrameBuffer* create_new();
+    //store data in frame into this RFIDFrameBuffer
+    void store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
+private:
+    uint8_t buffer[RFID_PACKET_BUFFER_SIZE];
+    uint8_t storedSize;
 };
 
 #ifdef __cplusplus

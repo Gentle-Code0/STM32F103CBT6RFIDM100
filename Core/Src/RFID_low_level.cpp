@@ -112,3 +112,7 @@ void RFIDCommands::checksum(uint8_t bytes[], size_t size)
     bytes[size] = checksum;
 }
 
+RFIDFrameBuffer* RFIDFrameBuffer::create_new()
+{
+    return new RFIDFrameBuffer;
+}
