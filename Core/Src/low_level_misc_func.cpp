@@ -70,6 +70,6 @@ void set_new_baudrate(UART_HandleTypeDef *huart, uint32_t newBaudrate)
 void print_to_TTL(UART_HandleTypeDef *huart, uint8_t* data, uint16_t dataSize)
 {
 #if TTL_DEBUG
-    HAL_UART_Transmit(huart, data, dataSize, 500);
+    HAL_UART_Transmit_IT(huart, data, dataSize);
 #endif // TTL_DEBUG
 }
