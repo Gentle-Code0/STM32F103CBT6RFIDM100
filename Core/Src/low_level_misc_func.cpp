@@ -3,12 +3,20 @@
 volatile uint8_t receivedDataLength = 0;
 uint8_t rxBuffer[RXBUFFER_SIZE];
 
-void copy_array(uint8_t* src, uint8_t* des, uint8_t length)
+bool copy_array(uint8_t* src, uint8_t* des, uint8_t length)
 {
-    for(uint8_t i = 0; i < length; i ++)
+    if(sizeof(des) <= length)
     {
-        des[i] = src[i];
+        for(uint8_t i = 0; i < length; i ++)
+        {
+            des[i] = src[i];
+        }
+        return true;
+    } else {
+        //destination array's free space is not enough to store source array
+        return false;
     }
+    
 }
 
 //USB function that is not used anymore

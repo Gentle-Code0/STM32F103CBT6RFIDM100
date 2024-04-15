@@ -18,7 +18,7 @@ extern uint8_t rxBuffer[RXBUFFER_SIZE];
 
 //Copy a source array to a destination array
 //TO DO: This function should output error message when length is larger than any of these arrays.
-void copy_array(uint8_t* src, uint8_t* des, uint8_t length);
+bool copy_array(uint8_t* src, uint8_t* des, uint8_t length);
 
 //this USB function is not used anymore
 //A print to USB function
