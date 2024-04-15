@@ -1,6 +1,7 @@
 #include "RFID.h"
 
 //Two frame buffers can be used interchangeably
+//not used for now
 RFIDFrameBuffer* firstFrameBuffer = nullptr;
 RFIDFrameBuffer* secondFrameBuffer = nullptr;
 

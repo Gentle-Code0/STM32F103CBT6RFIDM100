@@ -110,8 +110,8 @@ public:
     //call it when merging a frame together is completed
     ~RFIDFrameBuffer() {delete this;}
 
-    //store data in frame into this RFIDFrameBuffer
-    void store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
+    //store source buffer's data into this RFIDFrameBuffer
+    bool store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
 
     //This function will return the address of the buffer
     uint8_t* get_buffer_addr();
