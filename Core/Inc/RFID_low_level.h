@@ -95,6 +95,7 @@ private:
 enum RFIDErrorTypes{
     NoError,
     NotaPacket,
+    FrameIncomplete,
     ChecksumWrong,
     CommandError,
     PollingFail,
@@ -119,7 +120,8 @@ private:
     uint8_t storedSize = 0;
 };
 
-namespace RFIDLowLevel{
+namespace RFIDLowLevel
+{
     //create a new RFID frame buffer
     void create_new_frame_buffer(RFIDFrameBuffer* destination);
 }

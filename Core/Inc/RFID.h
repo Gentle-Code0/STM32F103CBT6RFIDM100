@@ -47,8 +47,9 @@ public:
 
     //Start a non-blocking receive through DMA until idle
     //void start_nonblock_receive();
-    //Data processing function when rx receive is complete
-    void received_data_processing();
+
+    //Received data processing function when one rx dma receive hits idle
+    void received_handling();
 
     //Return the value of the packet loss time
     uint16_t get_packet_loss_time();
@@ -58,12 +59,18 @@ public:
     uint8_t* return_databuffer_address();
     uint16_t return_databuffer_occupied_size();
 private:
-    void resetClassVariables();
+    void reset_class_variables();
+
+    //Received frame processing function when no error is detected 
+    void no_error_complete_handling();
+
+    //handling error types
+    void error_handling(RFIDErrorTypes errorType);
     RFIDErrorTypes errorJudge(const uint8_t data[], uint8_t size);
 
     //Variables should not change after construction
     RFIDCommands m_commands;
-    uint8_t enable_pin = 0;
+    uint8_t enablePin = 0;
 
     //Variables will change
     uint16_t packetLossTime = 0;
@@ -72,6 +79,7 @@ private:
 
     //Flags
     ReceiveState RFIDReceiveState = NotStarted;
+    RFIDErrorTypes errortype = NoError;
 };
 
 #ifdef __cplusplus

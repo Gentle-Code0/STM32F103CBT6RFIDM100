@@ -42,11 +42,10 @@ void user_rx_callback(UART_HandleTypeDef *huart, uint16_t Pos)
 }
 
 void RFID1_DMA_receive(){
-    RFID1.received_data_processing();
+    RFID1.received_handling();
     HAL_UARTEx_ReceiveToIdle_DMA(RFID1.uartHandleInstance, rxBuffer, RXBUFFER_SIZE); //restart the DMA receiving process
     
     //Print received data to TTL, if available
-    print_to_TTL(RFID1.uartHandleInstance, (uint8_t *)"Received data is:", sizeof("Received data is:") - 1);
     print_to_TTL(RFID1.uartHandleInstance, RFID1.return_databuffer_address(), RFID1.return_databuffer_occupied_size());
     //print_to_USB(RFID1.return_databuffer_address());
 }
