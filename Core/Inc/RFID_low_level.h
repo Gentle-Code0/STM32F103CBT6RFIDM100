@@ -102,30 +102,6 @@ enum RFIDErrorTypes{
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
-class RFIDFrameBuffer
-{
-public:
-
-    //delete current RFID frame buffer，
-    //call it when merging a frame together is completed
-    ~RFIDFrameBuffer() {delete this;}
-
-    //store source buffer's data into this RFIDFrameBuffer
-    bool store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize);
-
-    //This function will return the address of the buffer
-    uint8_t* get_buffer_addr();
-private:
-    uint8_t buffer[RFID_FRAME_BUFFER_SIZE];
-    uint8_t storedSize = 0;
-};
-
-namespace RFIDLowLevel
-{
-    //create a new RFID frame buffer
-    void create_new_frame_buffer(RFIDFrameBuffer* destination);
-}
-
 #ifdef __cplusplus
 }  // Match extern "C"
 #endif

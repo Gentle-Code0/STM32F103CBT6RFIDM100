@@ -1,13 +1,5 @@
 #include "RFID.h"
 
-//Two frame buffers can be used interchangeably
-//not used for now
-RFIDFrameBuffer* firstFrameBuffer = nullptr;
-RFIDFrameBuffer* secondFrameBuffer = nullptr;
-
-//0 represents the first buffer, 1 represents the second buffer
-bool lastUsedBuffer = 1;
-
 void RFIDModule::enable()
 {
     HAL_GPIO_WritePin(GPIOB, enablePin, GPIO_PIN_SET);
@@ -126,15 +118,7 @@ void RFIDModule::received_handling()
             error_handling(errortype);
         }
     } else if(RFIDReceiveState == ReceiveIncomplete) {
-        if(lastUsedBuffer != 0){
-            //If last used buffer is not the first buffer
-            //firstFrameBuffer->~RFIDFrameBuffer();
-            //RFIDLowLevel::create_new_frame_buffer(firstFrameBuffer);
-            //copy_array(rxBuffer, firstFrameBuffer->get_buffer_addr(), receivedDataLength);
-            //lastUsedBuffer = 0;
-        } else {
 
-        }
     }
 }
 
@@ -145,6 +129,7 @@ void RFIDModule::reset_class_variables()
     {
         receivedDataBuffer[i] = 0;
     }
+    errortype = NoError;
 }
 
 uint16_t RFIDModule::get_packet_loss_time()

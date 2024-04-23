@@ -111,28 +111,3 @@ void RFIDCommands::checksum(uint8_t bytes[], size_t size)
     }
     bytes[size] = checksum;
 }
-
-bool RFIDFrameBuffer::store_frame_to_buffer(uint8_t* sourceBuffer, uint8_t& frameSize)
-{
-    //buffer will start to copy from the position where the last copy ended
-    if(copy_array(sourceBuffer, buffer + storedSize, frameSize))
-    {
-        //copy_array returns true, free space is enough
-        //record current used space
-        storedSize += frameSize;
-        return true;
-    } else {
-        //free space is not enough
-        return false;
-    }    
-}
-
-uint8_t* RFIDFrameBuffer::get_buffer_addr()
-{
-    return buffer;
-}
-
-void RFIDLowLevel::create_new_frame_buffer(RFIDFrameBuffer* destination)
-{
-    destination = new RFIDFrameBuffer;
-}
