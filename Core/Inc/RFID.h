@@ -59,6 +59,7 @@ public:
     uint8_t* return_databuffer_address();
     uint16_t return_databuffer_occupied_size();
 private:
+    //reset every data receiving variable except packetLossTime
     void reset_class_variables();
 
     //Received frame processing function when no error is detected 

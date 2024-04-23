@@ -99,27 +99,57 @@ void RFIDModule::exit_IDLEmode()
 
 //Using global veriables rxBuffer, reveivedDataLength, receiveEndFlag
 //Does not contain if judge sentence and reboot of DMA receive process,
+// TODO: reset_class_variables() should be done after processing of data is completed
 void RFIDModule::received_handling()
 {
-    reset_class_variables();
     if(RFIDReceiveState == NotStarted){
         //Enter the first receive of the frame
-        copy_array(rxBuffer, receivedDataBuffer, receivedDataLength);
-        bufferOccupiedLength = receivedDataLength;
-        errortype = errorJudge(receivedDataBuffer, bufferOccupiedLength);
-        if(errortype == NoError)
+        if(copy_array(rxBuffer, receivedDataBuffer, receivedDataLength))
         {
-            //One frame completed in a single receive
-            no_error_complete_handling();
-        } else if(errortype == FrameIncomplete) {
-            RFIDReceiveState = ReceiveIncomplete;
-            return;
+            bufferOccupiedLength = receivedDataLength;
+            errortype = errorJudge(receivedDataBuffer, bufferOccupiedLength);
+            if(errortype == NoError)
+            {
+                //One frame completed in a single receive
+                no_error_complete_handling();
+            } else if(errortype == FrameIncomplete) {
+                //Received data is only a part of a frame
+                RFIDReceiveState = ReceiveIncomplete;
+                //Abort the function to avoid being reset
+                return;
+            } else {
+                error_handling(errortype);
+            }
         } else {
+            errortype = BufferExceeded;
             error_handling(errortype);
         }
     } else if(RFIDReceiveState == ReceiveIncomplete) {
-
+        //If last time receive did not contain a full frame
+        if(copy_array(rxBuffer, receivedDataBuffer + bufferOccupiedLength, receivedDataLength))
+        {
+            //If receivedDataBuffer's empty space is enough
+            bufferOccupiedLength = receivedDataLength;
+            errortype = errorJudge(receivedDataBuffer, bufferOccupiedLength);
+            if(errortype == NoError)
+            {
+                no_error_complete_handling();
+            } else if(errortype == FrameIncomplete) {
+                //Received data is only a part of a frame
+                RFIDReceiveState = ReceiveIncomplete;
+                //Abort the function to avoid being reset
+                return;
+            } else {
+                error_handling(errortype);
+            }
+        } else {
+            //If receivedDataBuffer's empty space is not enough
+            errortype = BufferExceeded;
+            error_handling(errortype);
+        }
     }
+    //reset everything
+    reset_class_variables();
 }
 
 void RFIDModule::reset_class_variables()
@@ -130,6 +160,7 @@ void RFIDModule::reset_class_variables()
         receivedDataBuffer[i] = 0;
     }
     errortype = NoError;
+    RFIDReceiveState = NotStarted;
 }
 
 uint16_t RFIDModule::get_packet_loss_time()
@@ -144,9 +175,10 @@ RFIDErrorTypes RFIDModule::errorJudge(const uint8_t data[], uint8_t size)
     RFIDErrorTypes errorType = NoError;
     uint8_t checksumValue = data[size -2];
 
-    //Judge if a whole frame is
+    //Judge if the beginning of the data matches a frame
     if(data[0] == RFID_START_BYTE && size < RXBUFFER_SIZE)
     {
+        //Judge if it is a complete frame
         if(data[size - 1] == RFID_END_BYTE)
         {
             for (uint8_t i = 1; i < size - 2; i++)
@@ -204,6 +236,10 @@ void RFIDModule::error_handling(RFIDErrorTypes errorType)
             break;
         case PollingFail:
             //print_to_TTL(uartHandleInstance, (uint8_t *)"Error is PollingError", sizeof("Error is PollingError") - 1);
+            packetLossTime ++;
+            break;
+        case BufferExceeded:
+            //print_to_TTL(uartHandleInstance, (uint8_t *)"Error is BufferExceeded", sizeof("Error is BufferExceeded") - 1);
             packetLossTime ++;
             break;
         case OtherError:

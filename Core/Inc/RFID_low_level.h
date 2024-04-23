@@ -99,6 +99,7 @@ enum RFIDErrorTypes{
     ChecksumWrong,
     CommandError,
     PollingFail,
+    BufferExceeded,
     OtherError, //OtherError can be expanded to more detailed error types, see the user manual.
 };
 
