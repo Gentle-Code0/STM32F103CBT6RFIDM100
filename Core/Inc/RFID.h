@@ -20,8 +20,8 @@ public:
     //Forbid default constructor
     //This class must have a valid UART_HandleTypeDef address
     RFIDModule() = delete; 
-    RFIDModule(UART_HandleTypeDef& huart):
-    uartHandleInstance(&huart), m_commands(*uartHandleInstance){}
+    RFIDModule(UART_HandleTypeDef& huart, uint16_t RFIDEnablePin):
+    uartHandleInstance(&huart), m_commands(*uartHandleInstance), enablePin(RFIDEnablePin){}
 
     //Should not change after construction
     UART_HandleTypeDef* uartHandleInstance;
@@ -71,7 +71,7 @@ private:
 
     //Variables should not change after construction
     RFIDCommands m_commands;
-    uint8_t enablePin = 0;
+    uint16_t enablePin = 0;
 
     //Variables will change
     uint16_t packetLossTime = 0;

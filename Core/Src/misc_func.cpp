@@ -1,6 +1,6 @@
 #include "misc_func.h"
 
-RFIDModule RFID1(FIRST_RFID_UART);
+RFIDModule RFID1(FIRST_RFID_UART, FIRST_RFID_ENABLE_PIN);
 
 //Register user's callback function
 void register_callback_init(UART_HandleTypeDef* huart)
